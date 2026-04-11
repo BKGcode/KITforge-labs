@@ -1,0 +1,106 @@
+{
+  "version": "0.2.0",
+  "studio": "KITforge labs",
+  "website": "https://kitforgelabs.com",
+  "focus": "purpose-built Unity tools for real workflows",
+  "projectType": "commercial-asset-store-lab",
+  "labPhase": "ACTIVE",
+  "rootFolder": "Assets/Plugins/KITforge Labs",
+  "developFolder": "Assets/Plugins/KITforge Labs/_Develop",
+  "bootstrapFile": "Assets/Plugins/KITforge Labs/_Develop/BOOTSTRAP.md",
+  "productRootPattern": "KF_<ToolSlug>",
+  "devFolderPattern": "_Develop/KF_<ToolSlug>_dev",
+  "activeProduct": "KF_HierarchyKit",
+  "productPhases": [
+    "BACKLOG",
+    "BRIEF",
+    "ARCHITECTURE",
+    "BUILD",
+    "QA",
+    "STORE_PREP",
+    "PUBLISHED",
+    "MAINTAINED"
+  ],
+  "productRules": {
+    "noBuildWithoutApprovedBrief": true,
+    "noCodeBeforeApprovedArchitecture": true,
+    "oneRootFolderPerProduct": true,
+    "readmeRequired": true,
+    "demoSceneRequired": true,
+    "thirdPartyNoticesRequiredWhenApplicable": true,
+    "noCrossProductDependencies": true,
+    "namespacePattern": "KITforgeLabs.<Area>.<Slug>"
+  },
+  "products": {
+    "KF_HierarchyKit": {
+      "name": "Hierarchy Enhancement Kit",
+      "phase": "BRIEF",
+      "score": 29,
+      "tier": "Simple",
+      "wave": 1
+    },
+    "KF_ProjectAudit": {
+      "name": "Project Health Auditor",
+      "phase": "BACKLOG",
+      "score": 29,
+      "tier": "Moderate",
+      "wave": 1
+    },
+    "KF_ScreenCapture": {
+      "name": "Game Screenshot & Media Toolkit",
+      "phase": "BACKLOG",
+      "score": 28,
+      "tier": "Simple",
+      "wave": 1
+    },
+    "KF_SafeClean": {
+      "name": "Safe Cleanup & Dependency Map",
+      "phase": "BACKLOG",
+      "score": 28,
+      "tier": "Complex",
+      "wave": 2
+    },
+    "KF_BuildChecker": {
+      "name": "Pre-Build Validator",
+      "phase": "BACKLOG",
+      "score": 27,
+      "tier": "Moderate",
+      "wave": 2
+    },
+    "KF_MicroFX": {
+      "name": "URP Micro FX Pack",
+      "phase": "BACKLOG",
+      "score": 25,
+      "tier": "Moderate",
+      "wave": 2
+    },
+    "KF_PaletteKit": {
+      "name": "Color & Material Palette Manager",
+      "phase": "BACKLOG",
+      "score": 25,
+      "tier": "Moderate",
+      "wave": 2
+    },
+    "KF_DebugOverlay": {
+      "name": "In-Game Debug & Stats Overlay",
+      "phase": "BACKLOG",
+      "score": 24,
+      "tier": "Moderate",
+      "wave": 2
+    },
+    "KF_InspectorKit": {
+      "name": "Inspector Productivity Pack",
+      "phase": "BACKLOG",
+      "score": 23,
+      "tier": "Moderate",
+      "wave": 3
+    },
+    "KF_SceneExplorer": {
+      "name": "Scene Cross-Reference Explorer",
+      "phase": "BACKLOG",
+      "score": 21,
+      "tier": "Complex",
+      "wave": 3
+    }
+  }
+}
