@@ -104,12 +104,12 @@ KF_<Slug>/
 
 ## 6. MenuItems
 
-Formato: `KITforge Labs/<NombreTool>/<Accion>`
+Formato: `KITforge/<NombreTool>/<Accion>` — top-level, al mismo nivel que File, Edit, Assets, Tools.
 
 ```csharp
-[MenuItem("KITforge Labs/Hierarchy Kit/Open Window %#h")]
-[MenuItem("KITforge Labs/Project Audit/Run Scan")]
-[MenuItem("KITforge Labs/Project Audit/Settings")]
+[MenuItem("KITforge/Hierarchy Kit/Open Window %#h")]
+[MenuItem("KITforge/Project Audit/Run Scan")]
+[MenuItem("KITforge/Project Audit/Settings")]
 ```
 
 Todos los MenuItems del mismo producto bajo el mismo submenu. El shortcut (si hay) va al final entre `%`, `#`, `&` y la tecla.
@@ -121,7 +121,7 @@ Todos los MenuItems del mismo producto bajo el mismo submenu. El shortcut (si ha
 Si el usuario crea instancias de SOs:
 - Nombre del asset: `KF_<Slug>Settings.asset` por defecto
 - Location: `Assets/` por defecto (el usuario puede moverlo)
-- Siempre `[CreateAssetMenu]` con `menuName = "KITforge Labs/..."` para descubrimiento
+- Siempre `[CreateAssetMenu]` con `menuName = "KITforge Labs/..."` para descubrimiento (Assets menu, no Tools — convención Unity estándar para SOs)
 
 ```csharp
 [CreateAssetMenu(menuName = "KITforge Labs/Hierarchy Kit Settings", fileName = "KF_HierarchyKitSettings")]

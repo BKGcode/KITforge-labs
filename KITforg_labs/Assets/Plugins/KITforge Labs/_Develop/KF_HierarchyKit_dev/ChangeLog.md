@@ -1,6 +1,29 @@
 # ChangeLog — KF_HierarchyKit
-Phase: BRIEF
-Last updated: 2026-04-11 (Session 2)
+Phase: BUILD
+Last updated: 2026-04-11 (Session 3)
+
+---
+
+## Architecture — Simple Tier (inline spec)
+
+```
+FILES (5):
+  KF_HierarchyKitInitializer.cs  [InitializeOnLoad] static. Subscribes hook. Single responsibility: wiring.
+  KF_HierarchyKitRenderer.cs     Static. IMGUI drawing logic. DrawRow(instanceId, rowRect).
+  KF_HierarchyKitSettings.cs     Config data class + EditorPrefs bridge. Lazy singleton via Current property.
+  KF_HierarchyKitWindow.cs       EditorWindow (UI Toolkit). Settings panel. [Session 4+]
+  KF_HierarchyKitMenuItems.cs    [MenuItem] + context menu "Add Header Above". [Session 4+]
+
+DATA FLOW:
+  [InitializeOnLoad ctor] → subscribes hierarchyWindowItemOnGUI → Renderer.DrawRow(id, rect)
+    → reads KF_HierarchyKitSettings.Current (cached lazy load from EditorPrefs JSON)
+    → IsHeader(name) → DrawHeaderRow / DrawBorderRow
+
+PERF CONTRACT:
+  No allocations inside DrawRow hot path except go.name (TODO: cache in Session 4 perf pass)
+  GUIStyle cached as static lazy field. IsHeader uses StartsWith only (no LINQ, no Regex).
+  Performance gate: checkpoint 10 → 200-object scene, no visible lag.
+```
 
 ---
 
@@ -30,8 +53,42 @@ DECISIONS:
 - _KFL_close es el último paso de cada sesión. Handoff block se pega como primer mensaje de la siguiente conversación.
 REFS: Brief.md, BOOTSTRAP.md, tools_lab_env.json, /memories/repo/kitforge-tools-lab-core-reference.md
 
-### Build Checkpoints (populated during BUILD phase)
-(none — not in BUILD yet)
+### Session 3 — 2026-04-11
+GOAL: package.json + asmdef + primera sesión BUILD — checkpoints 1+2.
+DONE:
+- package.json creado: com.kitforgelabs.hierarchykit v0.1.0, unity 6000.0
+- asmdef creado: KITforgeLabs.HierarchyKit.Editor (Editor-only, autoReferenced: false)
+- Architecture spec escrita inline en ChangeLog (Simple tier — 15 líneas, sin doc separado)
+- KF_HierarchyKitInitializer.cs: [InitializeOnLoad] → suscripción a hierarchyWindowItemOnGUI
+- KF_HierarchyKitSettings.cs: config data class + EditorPrefs bridge (lazy Current property)
+- KF_HierarchyKitRenderer.cs: DrawRow, IsHeader, DrawHeaderRow, DrawBorderRow
+- README.md placeholder creado
+PENDING:
+- Probar checkpoints 1+2 en Unity (compile clean + visual auto-activation)
+- Checkpoint 3+4: contexto menu "Add Header Above" → KF_HierarchyKitMenuItems.cs
+- Checkpoint 5: Settings Window → KF_HierarchyKitWindow.cs (UI Toolkit)
+- Checkpoint 6: test de persistencia EditorPrefs tras domain reload
+- Perf pass: caché de go.name (Dictionary<int,string>, invalidar en HierarchyChanged)
+DECISIONS:
+- Sin Runtime assembly: 100% editor-only. Settings SO vive en editor assembly.
+- Header auto-detection: prefijos --- / === / [xxx] sin configuración previa → AHA inmediato.
+- GUIStyle cacheado como property lazy (reset automático en domain reload por ser static).
+- go.name sin caché en v0.1 — aceptado conscientemente hasta checkpoint perf (10).
+REFS: KF_HierarchyKit/package.json, Editor/asmdef, Editor/*.cs
+
+### Build Checkpoints
+| # | Checkpoint | Status |
+|---|-----------|--------|
+| 1 | Package imports clean — zero compile errors | PENDING TEST |
+| 2 | Auto-activation — visual enhancements visible | PENDING TEST |
+| 3 | Context menu "Add Header Above" | NOT STARTED |
+| 4 | Header renders (color bg + bold text) | NOT STARTED |
+| 5 | Settings window opens, no errors | NOT STARTED |
+| 6 | EditorPrefs persistence across domain reload | NOT STARTED |
+| 7 | Optional Settings SO | NOT STARTED |
+| 8 | Demo scene with 5+ headers + 3+ color rules | NOT STARTED |
+| 9 | Zero idle errors (no scene loaded, window closed) | NOT STARTED |
+| 10 | Performance gate: 200-object scene, no lag | NOT STARTED |
 
 ---
 

@@ -1,0 +1,16 @@
+{
+    "name": "KITforgeLabs.HierarchyKit.Editor",
+    "rootNamespace": "KITforgeLabs.Editor.HierarchyKit",
+    "references": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
