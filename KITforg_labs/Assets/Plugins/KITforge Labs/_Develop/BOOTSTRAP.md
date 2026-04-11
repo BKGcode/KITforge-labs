@@ -1,5 +1,5 @@
 # BOOTSTRAP — KITforge labs
-v0.3.0 | 2026-04-11
+v1.0.0 | Factory v1 | 2026-04-11
 AI-ONLY DOCUMENT. No human reader. Dense instruction set.
 
 ---
@@ -57,7 +57,7 @@ Skills  : unity-rules ✓ | unity-tools-skill ✓ | code-doctor ✓ | KF_Naming 
 
 ## HARD RULES (enforce always, no exceptions)
 ```
-R1: No código antes de Architecture.md APPROVED
+R1: No código antes de Architecture.md APPROVED (Moderate/Complex tier only. Simple tier: Brief APPROVED = enough gate)
 R2: No BUILD sin Brief.md APPROVED
 R3: _Develop/ = INTERNAL ONLY. Never included in shipped packages.
 R4: KF_{slug}/ = SHIPPING ONLY. Never dev files here.
@@ -65,6 +65,8 @@ R5: Namespace = KITforgeLabs.Editor.{Slug} | KITforgeLabs.Runtime.{Slug}
 R6: No cross-product deps without explicit _Shared/ module + doc justification
 R7: Zero console errors at idle before QA PASSED
 R8: Every product ships: README.md + Demo scene + Third-Party Notices.txt (if needed)
+R9: NEVER build product code without explicit user request. Building the factory ≠ building a product.
+R10: Read KF_Learnings.md at session start — avoid repeating past mistakes.
 ```
 
 ---

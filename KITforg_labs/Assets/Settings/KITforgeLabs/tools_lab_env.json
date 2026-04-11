@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0",
+  "version": "0.3.0",
   "studio": "KITforge labs",
   "website": "https://kitforgelabs.com",
   "focus": "purpose-built Unity tools for real workflows",
@@ -10,7 +10,7 @@
   "bootstrapFile": "Assets/Plugins/KITforge Labs/_Develop/BOOTSTRAP.md",
   "productRootPattern": "KF_<ToolSlug>",
   "devFolderPattern": "_Develop/KF_<ToolSlug>_dev",
-  "activeProduct": "KF_HierarchyKit",
+  "activeProduct": null,
   "productPhases": [
     "BACKLOG",
     "BRIEF",
@@ -34,7 +34,7 @@
   "products": {
     "KF_HierarchyKit": {
       "name": "Hierarchy Enhancement Kit",
-      "phase": "BRIEF",
+      "phase": "BACKLOG",
       "score": 29,
       "tier": "Simple",
       "wave": 1

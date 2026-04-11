@@ -96,9 +96,25 @@ KF_<Slug>/
 ```
 
 **PROHIBIDO** en la carpeta del producto:
-- Archivos `_dev/`, `Brief.md`, `Architecture.md`, tests internos
+- Carpeta `_Dev/` o similar, `Brief.md`, `Architecture.md`, tests internos
 - Cualquier asset de otra tool KITforge
 - Escenas `Test_*.unity`
+
+### Carpeta de desarrollo por producto — `_Develop/<Slug>_dev/`
+
+Todo lo que NO se distribuye al comprador vive aquí, nunca en la carpeta del producto:
+
+```
+_Develop/
+  KF_<Slug>_dev/
+    Brief.md
+    ChangeLog.md
+    Architecture.md        ← solo si tier Moderate/Complex
+    Scenes/
+      KF_<Slug>_DevScene.unity   ← generada por DevSetup, commiteada
+```
+
+El script `KF_<Slug>_DevSetup.cs` (en `KF_<Slug>/Editor/`) escribe siempre en `_Develop/KF_<Slug>_dev/Scenes/`.
 
 ---
 
