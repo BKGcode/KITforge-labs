@@ -9,7 +9,6 @@ namespace KITforgeLabs.Editor.HierarchyKit
     {
         public bool enabled = true;
         public bool showTypeIcons = true;
-        public Color defaultBorderColor = new Color(0.35f, 0.55f, 1f, 0.5f);
     }
 
     static class KF_HierarchyKitSettings

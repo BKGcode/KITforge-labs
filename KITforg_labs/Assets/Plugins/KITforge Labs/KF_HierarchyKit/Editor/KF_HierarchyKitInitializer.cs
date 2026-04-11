@@ -8,6 +8,7 @@ namespace KITforgeLabs.Editor.HierarchyKit
         static KF_HierarchyKitInitializer()
         {
             EditorApplication.hierarchyWindowItemOnGUI += KF_HierarchyKitRenderer.OnHierarchyItemGUI;
+            EditorApplication.hierarchyChanged += KF_HierarchyKitRenderer.ClearNameCache;
         }
     }
 }

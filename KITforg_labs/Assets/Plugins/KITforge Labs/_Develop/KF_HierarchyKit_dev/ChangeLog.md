@@ -1,6 +1,6 @@
 # ChangeLog — KF_HierarchyKit
 Phase: BUILD
-Last updated: 2026-04-11 (Session 3)
+Last updated: 2026-04-11 (Session 4)
 
 ---
 
@@ -53,6 +53,25 @@ DECISIONS:
 - _KFL_close es el último paso de cada sesión. Handoff block se pega como primer mensaje de la siguiente conversación.
 REFS: Brief.md, BOOTSTRAP.md, tools_lab_env.json, /memories/repo/kitforge-tools-lab-core-reference.md
 
+### Session 4 — 2026-04-11
+GOAL: Checkpoints 3+4+5 + perf pass.
+DONE:
+- KF_HierarchyKitMenuItems.cs: MenuItem "KITforge/HierarchyKit/Settings..." + "Toggle Enable" (checkmark via Menu.SetChecked) + context menu "GameObject/KITforge/Add Header Above" (Undo-safe, validate: requires selection)
+- KF_HierarchyKitWindow.cs: EditorWindow UI Toolkit — Toggle(enabled), ColorField(borderColor), Toggle(showTypeIcons). Auto-save on change via RegisterValueChangedCallback + RepaintHierarchyWindow.
+- Perf pass: s_NameCache (Dictionary<int,string>) en Renderer — evita InstanceIDToObject + go.name en cada repaint. Invalidado via EditorApplication.hierarchyChanged en Initializer.
+PENDING:
+- ⚠️ Probar checkpoints 1–5 en Unity (compile clean + visuals + menus + ventana)
+- Checkpoint 6: test explícito persistencia EditorPrefs (change settings → recompile → verify)
+- Checkpoint 7: Settings SO (equipo)
+- Checkpoint 8: Demo scene 5+ headers + 3+ color rules
+- Checkpoint 9: zero idle errors (sin escena, ventana cerrada)
+- Checkpoint 10: perf gate 200-object scene
+DECISIONS:
+- "Add Header Above" crea un GO vacío con nombre "--- New Header ---" (usuario puede renombrar con F2). El "zero pollution" del Brief = sin componentes ocultos, no impide que el usuario cree GOs header intencionalmente.
+- Window auto-save (sin botón Save) — UX más limpia para settings.
+- s_NameCache como Dictionary no concurrent — OK: EditorApplication callbacks son single-threaded.
+REFS: Editor/KF_HierarchyKitMenuItems.cs, Editor/KF_HierarchyKitWindow.cs, Editor/KF_HierarchyKitRenderer.cs, Editor/KF_HierarchyKitInitializer.cs
+
 ### Session 3 — 2026-04-11
 GOAL: package.json + asmdef + primera sesión BUILD — checkpoints 1+2.
 DONE:
@@ -81,9 +100,9 @@ REFS: KF_HierarchyKit/package.json, Editor/asmdef, Editor/*.cs
 |---|-----------|--------|
 | 1 | Package imports clean — zero compile errors | PENDING TEST |
 | 2 | Auto-activation — visual enhancements visible | PENDING TEST |
-| 3 | Context menu "Add Header Above" | NOT STARTED |
-| 4 | Header renders (color bg + bold text) | NOT STARTED |
-| 5 | Settings window opens, no errors | NOT STARTED |
+| 3 | Context menu "Add Header Above" | PENDING TEST |
+| 4 | Header renders (color bg + bold text) | PENDING TEST |
+| 5 | Settings window opens, no errors | PENDING TEST |
 | 6 | EditorPrefs persistence across domain reload | NOT STARTED |
 | 7 | Optional Settings SO | NOT STARTED |
 | 8 | Demo scene with 5+ headers + 3+ color rules | NOT STARTED |
