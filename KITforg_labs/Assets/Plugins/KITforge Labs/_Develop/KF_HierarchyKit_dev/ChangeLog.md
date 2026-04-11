@@ -1,6 +1,6 @@
 # ChangeLog — KF_HierarchyKit
 Phase: BUILD
-Last updated: 2026-04-11 (Session 4)
+Last updated: 2026-04-11 (Session 5)
 
 ---
 
@@ -52,6 +52,28 @@ DECISIONS:
 - Architecture.md separado solo para Moderate/Complex. Simple tier: spec de package.json + asmdef en ChangeLog es suficiente gate antes de código.
 - _KFL_close es el último paso de cada sesión. Handoff block se pega como primer mensaje de la siguiente conversación.
 REFS: Brief.md, BOOTSTRAP.md, tools_lab_env.json, /memories/repo/kitforge-tools-lab-core-reference.md
+
+### Session 5 — 2026-04-11
+GOAL: Checkpoints 3–5 + perf pass — MenuItems, Settings Window, chip accent color.
+DONE:
+- KF_HierarchyKitMenuItems.cs: "KITforge/HierarchyKit/Settings..." + "Toggle Enable" (checkmark) + "GameObject/KITforge/Add Header Above" (Undo-safe + validate)
+- KF_HierarchyKitWindow.cs: EditorWindow UI Toolkit — Toggle(enabled) + Toggle(showTypeIcons), auto-save, CreateGUI() corregido (no override)
+- Diseño visual definitivo: chip #fec100 exclusivo de headers, objetos normales sin decoración
+- Perf pass: s_NameCache Dictionary<int,string> + ClearNameCache() suscrito a EditorApplication.hierarchyChanged
+- Bugfixes: override→private void CreateGUI(), using UnityEngine restaurado en Settings.cs
+- Reglas de memoria: #fec100 color corporativo, CreateGUI() no virtual, DOTween FREE only
+PENDING:
+- Probar checkpoints 1–5 en Unity (compile clean + visuals + menus + ventana) ← NEXT
+- Checkpoint 6: persistencia EditorPrefs tras domain reload
+- Checkpoint 7: Settings SO (equipo)
+- Checkpoint 8: Demo scene 5+ headers + 3+ color rules
+- Checkpoint 9: zero idle errors
+- Checkpoint 10: perf gate 200-object scene
+DECISIONS:
+- Chip #fec100 solo en headers — objetos normales quedan vanilla (sin ruido visual)
+- #fec100 es el color corporativo global KITforge labs para cualquier acento de UI
+- CreateGUI() en EditorWindow no es virtual — siempre private void, nunca override
+REFS: Editor/KF_HierarchyKitMenuItems.cs, Editor/KF_HierarchyKitWindow.cs, Editor/KF_HierarchyKitRenderer.cs, Editor/KF_HierarchyKitSettings.cs, Editor/KF_HierarchyKitInitializer.cs
 
 ### Session 4 — 2026-04-11
 GOAL: Checkpoints 3+4+5 + perf pass.
