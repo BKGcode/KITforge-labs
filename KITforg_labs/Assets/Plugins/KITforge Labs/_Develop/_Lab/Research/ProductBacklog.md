@@ -1,5 +1,5 @@
 # Product Backlog — KITforge labs
-Last updated: 2026-04-11
+Last updated: 2026-04-11 (expanded 2026-04-11: +5 products from external candidate review)
 Status: Wave 1 planning
 
 ---
@@ -280,6 +280,8 @@ These three cover three different buyer motivations:
 
 And they share zero code. Each is independently shippable.
 
+**Note (2026-04-11):** `KF_SceneBackup` (score 26, Simple tier) is a strong Wave 1 candidate. Unity 6 has no native auto-save. Could replace or join `KF_ScreenCapture` depending on team capacity.
+
 ---
 
 ## Products NOT in Wave 1 (rationale)
@@ -291,3 +293,144 @@ And they share zero code. Each is independently shippable.
 - `KF_DebugOverlay` — Solid product but crowded space at $0 (many free options).
 - `KF_PaletteKit` — Niche. Good fit once artist audience is established.
 - `KF_SceneExplorer` — Most valuable for large teams. Not the strongest first impression for a new solo studio.
+- `KF_DataBridge` — Promising (27/35) but Moderate tier. Wave 2 after brand established.
+- `KF_TexturePacker` — Valid pain. Needs clear differentiation vs Unity Sprite Atlas. Wave 2.
+- `KF_AutoCull` — Solid for mobile devs. Runtime component increases support burden. Wave 2.
+- `KF_SpriteSlicer` — 2D-only audience. Narrower reach. Wave 3.
+
+---
+
+## New Product Cards (added 2026-04-11)
+
+### 11. `KF_SceneBackup` — Scene Auto-Backup
+
+**One sentence:** Automatically saves timestamped backup copies of your scenes at configurable intervals — so a crash never means lost work again.
+
+**Problem:** Unity has no native auto-save. Crashes, accidental overwrites, or "I accidentally deleted that" moments cause real lost work. Devs either save obsessively or lose progress.
+
+**Target buyer:** Every Unity developer. One of the broadest possible audiences.
+
+**Competition context:** A few free open-source scripts exist (GitHub) but are unsupported and require manual setup. No polished paid solution in this space.
+
+**Unique angle:** Zero setup — works immediately on import. Configurable interval, max backups count, one-click restore from the backup list. Transparent and non-intrusive.
+
+**MVP feature set:**
+- Auto-save on interval (5/10/15/30 min, configurable)
+- Backup stored in `Library/SceneBackups/` (not in Assets — not committed to version control)
+- Backup list window with timestamps and restore button
+- Manual save shortcut
+- Notify in status bar when backup completes
+
+**Commercial tier:** Paid, $15. Impulse buy. "Worth it the first time Unity crashes."
+
+**Wave:** 1 (Simple tier, 1 week build, universal audience)
+
+**Score breakdown:** Pain 5 | Audience 5 | Setup 5 | Demo 4 | Safety 4 | Support 5 | Expansion 3 = **31/35**
+
+---
+
+### 12. `KF_DataBridge` — Spreadsheet to ScriptableObject Importer
+
+**One sentence:** Import data from Excel or Google Sheets into Unity ScriptableObjects in one click — no boilerplate, no manual copy-paste.
+
+**Problem:** Game designers maintain balance data in spreadsheets. Importing it into Unity means either writing custom parsers every project or copying values by hand. Both are slow and error-prone.
+
+**Target buyer:** Studios and solo devs working with data-heavy games (RPGs, strategy, card games). Designers who can't write C#.
+
+**Competition context:** Odin Serializer handles some of this. A few free CSV importers exist but are limited and unsupported. No polished, opinionated paid solution targeting this exact pain.
+
+**Unique angle:** Schema detection — the tool reads the spreadsheet and proposes the ScriptableObject layout. No-code mapping UI. Incremental re-import (only changed rows update).
+
+**MVP feature set:**
+- Import from .xlsx (no Google Sheets API — avoid external deps)
+- Auto-detect column types (string, int, float, bool, enum)
+- Visual column-to-field mapper
+- Generate ScriptableObject class from schema
+- Re-import with change detection
+- Progress bar for large sheets
+
+**Commercial tier:** Paid, $35. Moderate complexity but strong ROI is easy to demonstrate.
+
+**Wave:** 2
+
+**Score breakdown:** Pain 4 | Audience 4 | Setup 3 | Demo 4 | Safety 4 | Support 4 | Expansion 4 = **27/35**
+
+---
+
+### 13. `KF_TexturePacker` — UI Texture Atlas Builder
+
+**One sentence:** Combine UI sprites into a single texture atlas from inside Unity Editor — reducing SetPass calls without touching your folder structure.
+
+**Problem:** UI batching in Unity requires sprites to be in the same atlas. Unity's Sprite Atlas setup is manual, opaque, and easy to misconfigure. Developers either tolerate excessive draw calls or spend time debugging atlas misses.
+
+**Target buyer:** Any Unity dev with a non-trivial UI — mobile games especially where SetPass calls matter.
+
+**Competition context:** Unity Sprite Atlas is the native solution but poorly documented and manual. TexturePacker (external app) is the standard but costs money and requires leaving Unity.
+
+**Unique angle:** Fully inside Unity Editor. Visual preview of atlas packing. One-click rebuild. Respects existing folder structure — no files moved.
+
+**MVP feature set:**
+- Select sprites → pack into atlas asset
+- Preview packing efficiency (utilization %)
+- Rebuild atlas on demand or on asset change
+- Report: which sprites are NOT in any atlas (draw call risk)
+- Integration with Unity Sprite Atlas (generates the .spriteatlas asset)
+
+**Commercial tier:** Paid, $25.
+
+**Wave:** 2
+
+**Score breakdown:** Pain 4 | Audience 4 | Setup 4 | Demo 4 | Safety 4 | Support 4 | Expansion 3 = **27/35** → adjusted to **25** given Unity Sprite Atlas competition risk.
+
+---
+
+### 14. `KF_AutoCull` — Scene Object Visibility Optimizer
+
+**One sentence:** Automatically disables distant GameObjects based on configurable distance rules — with zero manual setup per object.
+
+**Problem:** Mobile devs need to cull far objects for performance, but setting up LOD groups or custom scripts per object is tedious. Most devs either skip it or write the same distance-check script every project.
+
+**Target buyer:** Mobile Unity developers building open or semi-open scenes.
+
+**Competition context:** Unity LOD Groups exist but require manual setup per prefab. Occlusion Culling is bake-only. No simple "just disable things past this distance" tool with a clean UI.
+
+**Unique angle:** Works at the scene level, not per-object. One component on a manager — all objects in range registered via tags or layers. No touching individual prefabs.
+
+**MVP feature set:**
+- Distance-based disable/enable per layer or tag
+- Configurable distance per category
+- Hysteresis (re-enable threshold different from disable threshold to avoid flickering)
+- Editor visualization (Scene View overlay showing culling zones)
+- Optional: LOD-style multi-distance tiers
+
+**Commercial tier:** Paid, $20.
+
+**Wave:** 2
+
+**Score breakdown:** Pain 4 | Audience 3 | Setup 4 | Demo 4 | Safety 3 | Support 4 | Expansion 4 = **26/35** → adjusted to **24** (mobile-only audience narrowing).
+
+---
+
+### 15. `KF_SpriteSlicer` — Sprite Sheet Auto-Slicer
+
+**One sentence:** Automatically slice and name sprites from large sprite sheets using configurable grid or smart-edge detection — with batch export to organized folders.
+
+**Problem:** Unity's manual Sprite Editor is tedious for large sheets. Naming each sprite manually is error-prone. Studios working with 2D assets waste significant time on sprite setup.
+
+**Target buyer:** 2D game developers. Narrower audience than editor tools.
+
+**Competition context:** Unity's Sprite Editor exists but is manual. No polished batch-naming tool in this space.
+
+**MVP feature set:**
+- Grid slicer with naming templates (`hero_idle_0`, `hero_idle_1`, etc.)
+- Smart edge detection (alpha-based bounds)
+- Batch rename with preview
+- Export to organized subfolder structure
+- Pivot presets (center, bottom-center, custom)
+
+**Commercial tier:** Paid, $15.
+
+**Wave:** 3
+
+**Score breakdown:** Pain 3 | Audience 3 | Setup 4 | Demo 4 | Safety 4 | Support 4 | Expansion 3 = **25/35** → adjusted to **22** (2D-only audience).
+

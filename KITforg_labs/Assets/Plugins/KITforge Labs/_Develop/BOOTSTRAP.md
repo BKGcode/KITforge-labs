@@ -35,10 +35,11 @@ COMPLEX tier:     c:\Users\Joan\.claude\skills\design-patterns-skill\SKILL.md
 ```
 ROOT = d:\_AI_PROJECTS_\KITforge Labs\Unity\KITforge-labs\KITforg_labs\Assets\Plugins\KITforge Labs\_Develop\Skills
 
-ALWAYS:           {ROOT}/KF_NamingConventions.md
-BRIEF phase:      {ROOT}/KF_BriefRules.md
-BUILD/QA phase:   {ROOT}/KF_QARules.md
-STORE_PREP:       {ROOT}/KF_StorePrepRules.md
+ALWAYS:                {ROOT}/KF_NamingConventions.md
+BRIEF phase:           {ROOT}/KF_BriefRules.md
+BUILD/QA phase:        {ROOT}/KF_QARules.md
+STORE_PREP:            {ROOT}/KF_StorePrepRules.md
+BRIEF + STORE_PREP:    {ROOT}/KF_MarketRules.md
 ```
 
 ---
@@ -94,11 +95,20 @@ Product:     {ROOT}/KF_{slug}/
 
 ## RESEARCH FILES (load when writing Briefs or scoring products)
 ```
-{ROOT}/_Lab/Research/ProductBacklog.md      ← 10 products, scores, product cards
+{ROOT}/_Lab/Research/ProductBacklog.md      ← 15 products, scores, product cards
 {ROOT}/_Lab/Research/MarketReference.md     ← market signals, competitor data
 {ROOT}/_Lab/Research/UsefulReferences.md    ← API links, GitHub repos, pricing
 /memories/repo/kitforge-tools-lab-core-reference.md
 /memories/repo/kitforge-tools-market-notes.md
+```
+
+## BUSINESS FILES (load during STORE_PREP or when writing positioning / pricing)
+```
+{ROOT}/_Lab/Business/_index.md              ← navigation map + key decisions table
+{ROOT}/_Lab/Business/BrandStrategy.md       ← brand DNA, voice rules, customer segments
+{ROOT}/_Lab/Business/PricingStrategy.md     ← pricing tiers, freemium framework, Wave 1 prices
+{ROOT}/_Lab/Business/LaunchPlaybook.md      ← launch process, submission checklist, seeding
+{ROOT}/_Lab/Business/SupportStrategy.md     ← SLA, channels, review protocol, anti-patterns
 ```
 
 ## _KFL COMMANDS AVAILABLE

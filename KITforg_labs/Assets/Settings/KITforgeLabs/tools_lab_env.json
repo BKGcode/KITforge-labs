@@ -101,6 +101,41 @@
       "score": 21,
       "tier": "Complex",
       "wave": 3
+    },
+    "KF_SceneBackup": {
+      "name": "Scene Auto-Backup",
+      "phase": "BACKLOG",
+      "score": 26,
+      "tier": "Simple",
+      "wave": 1
+    },
+    "KF_DataBridge": {
+      "name": "Spreadsheet to ScriptableObject Importer",
+      "phase": "BACKLOG",
+      "score": 27,
+      "tier": "Moderate",
+      "wave": 2
+    },
+    "KF_TexturePacker": {
+      "name": "UI Texture Atlas Builder",
+      "phase": "BACKLOG",
+      "score": 25,
+      "tier": "Moderate",
+      "wave": 2
+    },
+    "KF_AutoCull": {
+      "name": "Scene Object Visibility Optimizer",
+      "phase": "BACKLOG",
+      "score": 24,
+      "tier": "Moderate",
+      "wave": 2
+    },
+    "KF_SpriteSlicer": {
+      "name": "Sprite Sheet Slicer & Auto-Namer",
+      "phase": "BACKLOG",
+      "score": 22,
+      "tier": "Simple",
+      "wave": 3
     }
   }
 }
