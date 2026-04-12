@@ -43,6 +43,13 @@
                 <ui:VisualElement class="kfpk-add-role-bar">
                     <ui:Button name="kfpk-btn-add-role" class="kf-btn--secondary" text="+ Add Role" />
                     <ui:Button name="kfpk-btn-import-lospec" class="kf-btn--secondary" text="Import Lospec" />
+                    <ui:Button name="kfpk-btn-export" class="kf-btn--secondary" text="Export" tooltip="Export palette as PNG swatch strip + .hex file" />
+                </ui:VisualElement>
+                <ui:VisualElement name="kfpk-scope-row" class="kfpk-scope-row">
+                    <ui:Label class="kfpk-scope-label" text="Scope" />
+                    <ui:Button name="kfpk-scope-btn-scene" class="kfpk-scope-btn kfpk-scope-btn--active" text="Scene" />
+                    <ui:Button name="kfpk-scope-btn-project" class="kfpk-scope-btn" text="Project" />
+                    <ui:Button name="kfpk-scope-btn-selection" class="kfpk-scope-btn" text="Selection" />
                 </ui:VisualElement>
                 <ui:VisualElement class="kfpk-action-bar">
                     <ui:Button name="kfpk-btn-preview" class="kf-btn--secondary" text="Preview" />

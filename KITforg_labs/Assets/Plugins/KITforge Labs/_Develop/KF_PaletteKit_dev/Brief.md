@@ -86,7 +86,7 @@ No existe ninguna herramienta activa en la Asset Store (2026) que resuelva esto 
 | Nombre | Precio | Rating | Lo que hacen bien | Nuestra diferencia |
 |--------|--------|--------|------------------|-------------------|
 | Colorize (Smitesoft) | €55 | ⭐5.0 | Recolorea modelos low-poly con precisión de píxel via palette PNG. Familia completa de productos. UX muy pulida. | Nicho diferente: nosotros manejamos propiedades de shader (_BaseColor, _Color), no píxeles de textura. Funciona con ANY shader. No requiere formatos de textura específicos. |
-| Palette Modifier (Nicrom, 2019) | N/A | N/A | Intentó resolver algo similar para low-poly. Tenía concepto de palette. | **404 — eliminado del store.** Abandonado o retirado. Dejó el mercado vacío. |
+| Palette Modifier (Nicrom) | €18.40 | ⭐5.0 (338 reviews) | UV Inspector, per-object colors, color highlight, color groups, non-destructive workflow, reorderable + foldable list, reset single color, break color sharing, gradient, texture tint, save modified texture. Enfocado en **edición de píxeles de texture atlas** para low-poly. | **Paradigma diferente**: ellos modifican píxeles de textura (requieren palette texture atlas). Nosotros modificamos propiedades de shader — funciona con ANY shader, sin requerir formato específico de textura. Targets no solapados. Features de UX de referencia: color highlight, reset single color, reorderable list. |
 | Workaround manual | gratis | — | Siempre funciona. Sin dependencias. | No escala. 50 materiales = 50 operaciones. Sin undo masivo. Sin concepto de paleta reusable. Sin preview. |
 
 **Repos open source de referencia:**
@@ -229,7 +229,7 @@ Por qué alguien elegiría esto sobre lo que ya existe.
 | 9 | Scope Scene | Scope=Active Scene solo afecta materiales de objetos en la escena activa |
 | 10 | Scope Selection | Scope=Selection solo afecta materiales de objetos seleccionados en Hierarchy |
 | 11 | HEX Import | Lospec `.hex` file seleccionado → roles creados; nombre roles = `<filename> N`; Overwrite limpia bindings existentes; cap 64 colores |
-| 12 | PNG Export | Click Export → swatch PNG generado en `Assets/Settings/KITforgeLabs/Exports/` |
+| 12 | PNG Export | Click Export → swatch PNG + `.hex` (Lospec format con `# RoleName` como comentario encima de cada hex) generados en `Assets/Plugins/KITforge Labs/KF_PaletteKit/Exports/`; carpeta creada automáticamente |
 | 13 | Demo scene funciona | `Demo_KF_PaletteKit.unity` carga, 5 objetos visibles, Apply cambia todos |
 | 14 | Zero console errors | Todos los flujos anteriores sin errores ni warnings |
 
@@ -299,6 +299,37 @@ El studio lanza eventos de Halloween cada año. El TA tiene una palette `Hallowe
 
 **Ejemplo C — Dev integrando guía de color de dirección de arte:**
 El art director entrega un archivo JSON de 5 colores (Primary, Secondary, Accent, Background, Danger) exportado de Figma. El dev abre PaletteKit, click Import, pega el JSON, los 5 roles se crean automáticamente. Mapea cada rol a `_BaseColor` para los shaders del proyecto. Click Apply. Después exporta la misma paleta como PNG y la sube a Notion como referencia visual para el equipo no técnico.
+
+---
+
+---
+
+## 12. Proposed additions — detectadas en BUILD phase (2026-04-12)
+
+Hallazgos del `/_checker ux` + `/_checker as ta` + análisis de Palette Modifier (referencia activa en store). Pendiente de implementar en próxima sesión.
+
+### Gaps de flujo (críticos)
+
+| ID | Feature | Problema que resuelve | Tier |
+|----|---------|----------------------|------|
+| PA-01 | **Snapshot on Apply** | Apply es destructivo fuera del stack de Undo. Si el usuario cierra Unity post-Apply, no hay vuelta atrás. Guardar colores originales en Binding SO antes de cada Apply. | V1 |
+| PA-02 | **Palette Switcher** | Flujo ancla ausente. Tener 3 palette SOs no sirve si cambiar entre ellas requiere editar el ObjectField manualmente. ObjectField persistente "Active Palette" + Apply al cambiar selection. | V1 |
+| PA-03 | **Revert single role** | Revert actual es global. Botón `⟳` por role usando el snapshot de PA-01. | V1 |
+
+### Gaps de discoverability (menores)
+
+| ID | Feature | Problema que resuelve | Tier |
+|----|---------|----------------------|------|
+| PA-04 | **Renombrar "Binding" → "Material Map"** | "Binding" no es autoexplicativo. Barrera de onboarding para usuarios nuevos. | V1 |
+| PA-05 | **Role names en .hex export** | `.hex` exportado sin nombres → diseñador no sabe qué hex es "Primary". Formato: `# RoleName` como comentario. Ya implementado en CP12. | ✅ Done |
+| PA-06 | **Null binding cleanup** | Materiales eliminados del proyecto dejan entradas huérfanas en el binding para siempre. Filtrar nulls en `RebuildRolesList`. | V1 |
+
+### Features de referencia (Palette Modifier)
+
+| ID | Feature | Valor | Tier |
+|----|---------|-------|------|
+| PA-07 | **Color highlight** | Hover sobre role → renderers que lo usan se iluminan en SceneView. Feedback visual inmediato. | V1.1 |
+| PA-08 | **Reorderable roles list** | Drag para reordenar roles. Cosmético pero profesional. | V1.1 |
 
 ---
 

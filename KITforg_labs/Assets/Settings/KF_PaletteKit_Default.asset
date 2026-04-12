@@ -13,23 +13,93 @@ MonoBehaviour:
   m_Name: KF_PaletteKit_Default
   m_EditorClassIdentifier: KITforgeLabs.PaletteKit.Editor::KITforgeLabs.Editor.PaletteKit.KF_PaletteKitSO
   _roles:
-  - RoleName: 1
-    RoleColor: {r: 1, g: 0.4669811, b: 0.4669811, a: 0}
-    PropertyName: 42342
-    AssignedMaterials: []
-  - RoleName: 2
-    RoleColor: {r: 0.4764151, g: 0.84515256, b: 1, a: 0}
-    PropertyName: 
-    AssignedMaterials: []
-  - RoleName: 3
-    RoleColor: {r: 0.50226516, g: 1, b: 0.47450984, a: 0}
-    PropertyName: 
-    AssignedMaterials: []
-  - RoleName: 4
-    RoleColor: {r: 1, g: 0.8710938, b: 0.504717, a: 1}
-    PropertyName: _BaseColor
-    AssignedMaterials: []
-  - RoleName: New Role
+  - _roleGuid: 601341f7-d1d3-4d0e-b063-e7922e444c6e
+    RoleName: Hophop-30 1
+    RoleColor: {r: 0.03137255, g: 0.02745098, b: 0.05490196, a: 1}
+  - _roleGuid: ab59baf2-b655-4f1b-ab07-32804c94b1fc
+    RoleName: Hophop-30 2
+    RoleColor: {r: 0.101960786, g: 0.101960786, b: 0.18039216, a: 1}
+  - _roleGuid: 2697c464-182f-4484-9a74-a0b582fe94a9
+    RoleName: Hophop-30 3
+    RoleColor: {r: 0.14509805, g: 0.16470589, b: 0.25490198, a: 1}
+  - _roleGuid: caa78aae-a4df-4941-b9c9-f8ae48915a2f
+    RoleName: Hophop-30 4
+    RoleColor: {r: 0.23137255, g: 0.26666668, b: 0.40784314, a: 1}
+  - _roleGuid: ed66fc46-ab0a-4177-a11b-da8d601dca48
+    RoleName: Hophop-30 5
+    RoleColor: {r: 0.3529412, g: 0.4117647, b: 0.56078434, a: 1}
+  - _roleGuid: c60841ea-10ec-439c-8adf-bd33677ffdf6
+    RoleName: Hophop-30 6
+    RoleColor: {r: 0.54509807, g: 0.60784316, b: 0.7058824, a: 1}
+  - _roleGuid: 42f78aa8-765b-4546-9cc3-661ec70cb286
+    RoleName: Hophop-30 7
+    RoleColor: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
+  - _roleGuid: 861a4939-5f0f-4d8f-8074-3779e6cd9ea6
+    RoleName: Hophop-30 8
+    RoleColor: {r: 0.25882354, g: 0.25882354, b: 0.25882354, a: 1}
+  - _roleGuid: f604c64e-196d-4576-b603-98d01f8bc94c
+    RoleName: Hophop-30 9
+    RoleColor: {r: 0.43137255, g: 0.43137255, b: 0.43137255, a: 1}
+  - _roleGuid: 138070d4-436e-4945-98bf-0360f166a343
+    RoleName: Hophop-30 10
+    RoleColor: {r: 0.6313726, g: 0.6313726, b: 0.6313726, a: 1}
+  - _roleGuid: 6f6ab7ea-eee6-42fa-9779-9f302835155d
+    RoleName: Hophop-30 11
+    RoleColor: {r: 0.83137256, g: 0.83137256, b: 0.83137256, a: 1}
+  - _roleGuid: 21ba9fce-1102-4be6-a108-bae224f8dced
+    RoleName: Hophop-30 12
     RoleColor: {r: 1, g: 1, b: 1, a: 1}
-    PropertyName: _BaseColor
-    AssignedMaterials: []
+  - _roleGuid: 85b44a02-e726-43e4-a070-2a60df5b88d6
+    RoleName: Hophop-30 13
+    RoleColor: {r: 0.36862746, g: 0.043137256, b: 0.08235294, a: 1}
+  - _roleGuid: d08067c8-2ff9-475d-b95f-c77a1e4653f9
+    RoleName: Hophop-30 14
+    RoleColor: {r: 0.61960787, g: 0.105882354, b: 0.19607843, a: 1}
+  - _roleGuid: 8a727f4c-cb4a-45f5-9f3e-1769fd46033f
+    RoleName: Hophop-30 15
+    RoleColor: {r: 0.8901961, g: 0.14117648, b: 0.16862746, a: 1}
+  - _roleGuid: 99b000b7-dcaf-4135-982c-27a0bbfe5dec
+    RoleName: Hophop-30 16
+    RoleColor: {r: 1, g: 0.36862746, b: 0.36862746, a: 1}
+  - _roleGuid: bc0b8b43-f40c-43b1-ab4d-1ddc3c7357c4
+    RoleName: Hophop-30 17
+    RoleColor: {r: 1, g: 0.6039216, b: 0.4627451, a: 1}
+  - _roleGuid: d7abccc7-f76c-48aa-941c-19a9cc39a3e2
+    RoleName: Hophop-30 18
+    RoleColor: {r: 1, g: 0.827451, b: 0.7137255, a: 1}
+  - _roleGuid: d51a8c1a-0e73-4d2c-adf6-4a91a800429f
+    RoleName: Hophop-30 19
+    RoleColor: {r: 0.050980393, g: 0.23137255, b: 0.4, a: 1}
+  - _roleGuid: d93e7f65-c909-4e00-9770-22d8bc818704
+    RoleName: Hophop-30 20
+    RoleColor: {r: 0.02745098, g: 0.23137255, b: 0.29803923, a: 1}
+  - _roleGuid: d28f451e-450f-4dd2-9041-93a94b612744
+    RoleName: Hophop-30 21
+    RoleColor: {r: 0, g: 0.42745098, b: 0.46666667, a: 1}
+  - _roleGuid: ccfd260c-f227-4598-8adc-8c18246cd16f
+    RoleName: Hophop-30 22
+    RoleColor: {r: 0.007843138, g: 0.7647059, b: 0.7411765, a: 1}
+  - _roleGuid: 74c442f7-aa48-490c-a537-536a10f452dc
+    RoleName: Hophop-30 23
+    RoleColor: {r: 0.023529412, g: 0.8392157, b: 0.627451, a: 1}
+  - _roleGuid: e5cacdc1-3f26-42c6-be64-103b3259b916
+    RoleName: Hophop-30 24
+    RoleColor: {r: 0.06666667, g: 0.5411765, b: 0.69803923, a: 1}
+  - _roleGuid: 6f27c358-c407-4f99-be07-bcce13efb765
+    RoleName: Hophop-30 25
+    RoleColor: {r: 0.23921569, g: 0.16862746, b: 0.12156863, a: 1}
+  - _roleGuid: 6bbe2f5a-6362-4bb9-a1d2-a30ab3f56a68
+    RoleName: Hophop-30 26
+    RoleColor: {r: 0.47843137, g: 0.30980393, b: 0.21568628, a: 1}
+  - _roleGuid: bd6fe5dd-f05b-4c27-86ed-ba3594b3fc49
+    RoleName: Hophop-30 27
+    RoleColor: {r: 0.70980394, g: 0.5137255, b: 0.3529412, a: 1}
+  - _roleGuid: ab8fe620-69cb-4297-a34c-7c36d3e1ec5e
+    RoleName: Hophop-30 28
+    RoleColor: {r: 0.9019608, g: 0.6784314, b: 0.07058824, a: 1}
+  - _roleGuid: 4ba3a868-2beb-4405-b68d-1f10b0604e95
+    RoleName: Hophop-30 29
+    RoleColor: {r: 1, g: 0.84313726, b: 0, a: 1}
+  - _roleGuid: cea0d9e3-6330-44fa-8e10-9ff80bc16e58
+    RoleName: Hophop-30 30
+    RoleColor: {r: 1, g: 0.95686275, b: 0.6392157, a: 1}

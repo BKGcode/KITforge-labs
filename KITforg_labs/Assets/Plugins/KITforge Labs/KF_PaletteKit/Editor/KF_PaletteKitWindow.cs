@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEditor;
+using UnityEngine.SceneManagement;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -28,12 +29,14 @@ namespace KITforgeLabs.Editor.PaletteKit
 
         private const string k_NewPalettePath = "Assets/Plugins/KITforge Labs/KF_PaletteKit/Settings/KF_PaletteKit_Default.asset";
         private const string k_NewBindingPath = "Assets/Plugins/KITforge Labs/KF_PaletteKit/Settings/KF_PaletteKit_Binding.asset";
+        private const int k_SwatchSize = 64;
 
         private static readonly string[] k_PreferredColorProps =
             { "_BaseColor", "_Color", "_MainColor", "_TintColor", "_Tint" };
 
         [SerializeField] private KF_PaletteKitSO _palette;
         [SerializeField] private KF_PaletteKitBindingSO _binding;
+        [SerializeField] private Scope _scope = Scope.Scene;
 
         private SerializedObject _serializedPalette;
         private readonly Dictionary<Renderer, MaterialPropertyBlock> _previewBlocks = new();
@@ -45,8 +48,12 @@ namespace KITforgeLabs.Editor.PaletteKit
         private VisualElement _playModeBanner;
         private Label _statusMessage;
         private VisualElement _statusDot;
+        private Button _scopeBtnScene;
+        private Button _scopeBtnProject;
+        private Button _scopeBtnSelection;
 
         private enum StatusType { Success, Warning, Error }
+        private enum Scope { Scene, Project, Selection }
 
         public static void Open()
         {
@@ -82,6 +89,7 @@ namespace KITforgeLabs.Editor.PaletteKit
             uxml.CloneTree(rootVisualElement);
             SetupHeaderIcon();
             QueryRefs();
+            SetScope(_scope);
             WireUpToolbar();
             _paletteField.SetValueWithoutNotify(_palette);
             _bindingField.SetValueWithoutNotify(_binding);
@@ -101,6 +109,9 @@ namespace KITforgeLabs.Editor.PaletteKit
             _statusMessage = rootVisualElement.Q<Label>("kf-statusbar-message");
             _statusDot = rootVisualElement.Q<VisualElement>("kf-statusbar-dot");
             _playModeBanner = rootVisualElement.Q<VisualElement>("kf-playmode-banner");
+            _scopeBtnScene = rootVisualElement.Q<Button>("kfpk-scope-btn-scene");
+            _scopeBtnProject = rootVisualElement.Q<Button>("kfpk-scope-btn-project");
+            _scopeBtnSelection = rootVisualElement.Q<Button>("kfpk-scope-btn-selection");
         }
 
         private void WireUpToolbar()
@@ -115,12 +126,17 @@ namespace KITforgeLabs.Editor.PaletteKit
                 .RegisterCallback<ClickEvent>(_ => AddRole());
             rootVisualElement.Q<Button>("kfpk-btn-import-lospec")
                 .RegisterCallback<ClickEvent>(_ => ImportLospec());
+            rootVisualElement.Q<Button>("kfpk-btn-export")
+                .RegisterCallback<ClickEvent>(_ => ExportPalette());
             rootVisualElement.Q<Button>("kfpk-btn-preview")
                 .RegisterCallback<ClickEvent>(_ => PreviewAll());
             rootVisualElement.Q<Button>("kfpk-btn-revert")
                 .RegisterCallback<ClickEvent>(_ => RevertAll());
             rootVisualElement.Q<Button>("kfpk-btn-apply")
                 .RegisterCallback<ClickEvent>(_ => ApplyAll());
+            _scopeBtnScene.RegisterCallback<ClickEvent>(_ => SetScope(Scope.Scene));
+            _scopeBtnProject.RegisterCallback<ClickEvent>(_ => SetScope(Scope.Project));
+            _scopeBtnSelection.RegisterCallback<ClickEvent>(_ => SetScope(Scope.Selection));
         }
 
         private void AddStyleSheet(string path)
@@ -483,7 +499,7 @@ namespace KITforgeLabs.Editor.PaletteKit
             if (_palette == null) return;
             if (_binding == null) { SetStatus("No Binding SO assigned.", StatusType.Warning); return; }
             RevertAll();
-            var renderers = Object.FindObjectsByType<Renderer>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            var renderers = GetRenderersByScope();
             var warnings = new StringBuilder();
             foreach (var b in _binding.Bindings)
                 ApplyBindingToPreview(b, renderers, warnings);
@@ -556,8 +572,10 @@ namespace KITforgeLabs.Editor.PaletteKit
 
         private void ApplyRolesToMaterials(ref int count, StringBuilder warnings)
         {
+            var scopeMats = _scope == Scope.Project ? null : GetMaterialsInScope();
             foreach (var b in _binding.Bindings)
             {
+                if (scopeMats != null && !scopeMats.Contains(b.Material)) continue;
                 var role = _palette.Roles.Find(r => r.RoleGuid == b.RoleId);
                 if (role == null || b.Material == null) continue;
                 if (!b.Material.HasProperty(b.PropertyName)) { warnings.Append($"'{b.Material.name}' missing '{b.PropertyName}'. "); continue; }
@@ -645,6 +663,50 @@ namespace KITforgeLabs.Editor.PaletteKit
             return char.ToUpper(s[0]) + s.Substring(1);
         }
 
+        private void ExportPalette()
+        {
+            if (_palette == null) { SetStatus("No palette loaded.", StatusType.Warning); return; }
+            if (_palette.Roles.Count == 0) { SetStatus("Palette has no roles to export.", StatusType.Warning); return; }
+            string dir = EnsureExportsDir();
+            string baseName = _palette.name;
+            ExportSwatchPng(dir, baseName);
+            ExportHexFile(dir, baseName);
+            AssetDatabase.Refresh();
+            SetStatus($"Exported '{baseName}.png' + '{baseName}.hex'  →  Exports/", StatusType.Success);
+        }
+
+        private static string EnsureExportsDir()
+        {
+            string dir = Path.Combine(Application.dataPath,
+                "Plugins", "KITforge Labs", "KF_PaletteKit", "Exports");
+            Directory.CreateDirectory(dir);
+            return dir;
+        }
+
+        private void ExportSwatchPng(string dir, string baseName)
+        {
+            int count = _palette.Roles.Count;
+            var tex = new Texture2D(count * k_SwatchSize, k_SwatchSize, TextureFormat.RGBA32, false);
+            var block = new Color[k_SwatchSize * k_SwatchSize];
+            for (int i = 0; i < count; i++)
+            {
+                var c = _palette.Roles[i].RoleColor;
+                for (int p = 0; p < block.Length; p++) block[p] = c;
+                tex.SetPixels(i * k_SwatchSize, 0, k_SwatchSize, k_SwatchSize, block);
+            }
+            tex.Apply();
+            File.WriteAllBytes(Path.Combine(dir, baseName + ".png"), tex.EncodeToPNG());
+            Object.DestroyImmediate(tex);
+        }
+
+        private void ExportHexFile(string dir, string baseName)
+        {
+            var sb = new StringBuilder();
+            foreach (var role in _palette.Roles)
+                sb.AppendLine(ColorUtility.ToHtmlStringRGB(role.RoleColor));
+            File.WriteAllText(Path.Combine(dir, baseName + ".hex"), sb.ToString());
+        }
+
         private void SetStatus(string message, StatusType type)
         {
             if (_statusMessage == null || _statusDot == null) return;
@@ -667,6 +729,41 @@ namespace KITforgeLabs.Editor.PaletteKit
                 _                  => "kf-statusbar__dot--success"
             };
             _statusDot.AddToClassList(cssClass);
+        }
+
+        private void SetScope(Scope scope)
+        {
+            _scope = scope;
+            _scopeBtnScene.EnableInClassList("kfpk-scope-btn--active", scope == Scope.Scene);
+            _scopeBtnProject.EnableInClassList("kfpk-scope-btn--active", scope == Scope.Project);
+            _scopeBtnSelection.EnableInClassList("kfpk-scope-btn--active", scope == Scope.Selection);
+        }
+
+        private Renderer[] GetRenderersByScope()
+        {
+            if (_scope == Scope.Selection)
+                return Selection.GetFiltered<Renderer>(SelectionMode.Deep);
+            var all = Object.FindObjectsByType<Renderer>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            if (_scope != Scope.Scene)
+                return all;
+            var activeScene = SceneManager.GetActiveScene();
+            var result = new List<Renderer>();
+            foreach (var r in all)
+            {
+                if (r.gameObject.scene == activeScene)
+                    result.Add(r);
+            }
+            return result.ToArray();
+        }
+
+        private HashSet<Material> GetMaterialsInScope()
+        {
+            var renderers = GetRenderersByScope();
+            var set = new HashSet<Material>(renderers.Length);
+            foreach (var r in renderers)
+                foreach (var m in r.sharedMaterials)
+                    if (m != null) set.Add(m);
+            return set;
         }
     }
 }
