@@ -10,7 +10,7 @@
   "bootstrapFile": "Assets/Plugins/KITforge Labs/_Develop/BOOTSTRAP.md",
   "productRootPattern": "KF_<ToolSlug>",
   "devFolderPattern": "_Develop/KF_<ToolSlug>_dev",
-  "activeProduct": "KF_PaletteKit",
+  "activeProduct": null,
   "productPhases": [
     "BACKLOG",
     "BRIEF",
@@ -74,13 +74,7 @@
       "tier": "Moderate",
       "wave": 2
     },
-    "KF_PaletteKit": {
-      "name": "Color & Material Palette Manager",
-      "phase": "BUILD",
-      "score": 25,
-      "tier": "Simple",
-      "wave": 2
-    },
+
     "KF_DebugOverlay": {
       "name": "In-Game Debug & Stats Overlay",
       "phase": "BACKLOG",
