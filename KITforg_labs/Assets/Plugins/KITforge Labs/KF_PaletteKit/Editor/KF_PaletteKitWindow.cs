@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using UnityEditor;
 using UnityEditor.UIElements;
@@ -112,6 +113,8 @@ namespace KITforgeLabs.Editor.PaletteKit
                 .RegisterCallback<ClickEvent>(_ => CreateNewBinding());
             rootVisualElement.Q<Button>("kfpk-btn-add-role")
                 .RegisterCallback<ClickEvent>(_ => AddRole());
+            rootVisualElement.Q<Button>("kfpk-btn-import-lospec")
+                .RegisterCallback<ClickEvent>(_ => ImportLospec());
             rootVisualElement.Q<Button>("kfpk-btn-preview")
                 .RegisterCallback<ClickEvent>(_ => PreviewAll());
             rootVisualElement.Q<Button>("kfpk-btn-revert")
@@ -563,6 +566,83 @@ namespace KITforgeLabs.Editor.PaletteKit
                 EditorUtility.SetDirty(b.Material);
                 count++;
             }
+        }
+
+        private void ImportLospec()
+        {
+            var path = EditorUtility.OpenFilePanel("Import Lospec HEX Palette", "", "hex");
+            if (string.IsNullOrEmpty(path)) return;
+
+            string[] lines;
+            try { lines = File.ReadAllLines(path); }
+            catch (System.Exception e) { SetStatus($"Failed to read file: {e.Message}", StatusType.Error); return; }
+
+            var parsedColors = ParseLospecColors(lines);
+            if (parsedColors.Count == 0)
+            {
+                SetStatus("No valid colors found in HEX file.", StatusType.Error);
+                return;
+            }
+
+            bool overwrite = false;
+            if (_palette.Roles.Count > 0)
+            {
+                int choice = EditorUtility.DisplayDialogComplex(
+                    "Import Lospec Palette",
+                    $"Palette has {_palette.Roles.Count} role(s).\nOverwrite clears all roles and bindings.\nAppend adds {parsedColors.Count} new role(s).",
+                    "Overwrite", "Cancel", "Append");
+                if (choice == 1) return;
+                overwrite = choice == 0;
+            }
+
+            var paletteName = Path.GetFileNameWithoutExtension(path);
+            ApplyLospecImport(paletteName, overwrite, parsedColors);
+        }
+
+        private void ApplyLospecImport(string paletteName, bool overwrite, List<Color> colors)
+        {
+            Undo.RecordObject(_palette, "Import Lospec");
+            if (overwrite)
+            {
+                if (_binding != null)
+                {
+                    Undo.RecordObject(_binding, "Import Lospec");
+                    _binding.Bindings.Clear();
+                    EditorUtility.SetDirty(_binding);
+                }
+                _palette.Roles.Clear();
+            }
+
+            string prefix = string.IsNullOrEmpty(paletteName) ? "Color" : CapitalizeFirst(paletteName);
+            for (int i = 0; i < colors.Count; i++)
+            {
+                var role = new KF_PaletteKitColorRole { RoleName = $"{prefix} {i + 1}", RoleColor = colors[i] };
+                _palette.Roles.Add(role);
+            }
+
+            EditorUtility.SetDirty(_palette);
+            RebuildRolesList();
+            SetStatus($"Imported {colors.Count} role(s) from '{paletteName}'.", StatusType.Success);
+        }
+
+        private static List<Color> ParseLospecColors(string[] lines)
+        {
+            var result = new List<Color>();
+            foreach (var rawLine in lines)
+            {
+                if (result.Count >= 64) break;
+                var line = rawLine.Trim();
+                if (string.IsNullOrEmpty(line)) continue;
+                string hex = line.StartsWith("#") ? line : "#" + line;
+                if (ColorUtility.TryParseHtmlString(hex, out var color))
+                    result.Add(color);
+            }
+            return result;
+        }
+
+        private static string CapitalizeFirst(string s)
+        {
+            return char.ToUpper(s[0]) + s.Substring(1);
         }
 
         private void SetStatus(string message, StatusType type)

@@ -1,0 +1,84 @@
+{
+    "version": "1.0.0",
+    "agentId": "tools",
+    "namespace": "KITforgeLabs.Editor",
+    "coreGenerated": false,
+    "corePath": "Assets/Scripts/Editor/",
+    "ussPath": "Assets/Scripts/Editor/Styles/EditorCommon.uss",
+    "validatorsPath": "Assets/Scripts/Editor/Validators/",
+    "utilitiesPath": "Assets/Scripts/Editor/Utilities/",
+    "timestamp": "2026-04-12T00:00:00Z",
+    "tools": [
+        {
+            "id": "kf-palettekit",
+            "type": "EditorWindow",
+            "files": [
+                "Assets/Plugins/KITforge Labs/KF_PaletteKit/Editor/KF_PaletteKitWindow.cs",
+                "Assets/Plugins/KITforge Labs/KF_PaletteKit/Editor/KF_PaletteKitSO.cs",
+                "Assets/Plugins/KITforge Labs/KF_PaletteKit/Editor/KF_PaletteKitColorRole.cs",
+                "Assets/Plugins/KITforge Labs/KF_PaletteKit/Editor/KF_PaletteKitBindingSO.cs",
+                "Assets/Plugins/KITforge Labs/KF_PaletteKit/Editor/KF_PaletteKitMaterialBinding.cs",
+                "Assets/Plugins/KITforge Labs/KF_PaletteKit/Editor/KF_PaletteKitMenuItems.cs",
+                "Assets/Plugins/KITforge Labs/KF_PaletteKit/Editor/UXML/KF_PaletteKitWindow.uxml",
+                "Assets/Plugins/KITforge Labs/KF_PaletteKit/Editor/USS/KF_DesignTokens.uss",
+                "Assets/Plugins/KITforge Labs/KF_PaletteKit/Editor/USS/KF_Window.uss",
+                "Assets/Plugins/KITforge Labs/KF_PaletteKit/Editor/USS/KF_Components.uss",
+                "Assets/Plugins/KITforge Labs/KF_PaletteKit/Editor/USS/KF_PaletteKitSpecific.uss"
+            ],
+            "dependencies": {
+                "targetType": null,
+                "editorPrefsKeys": [],
+                "sessionStateKeys": [],
+                "soSchemas": [
+                    "KF_PaletteKitSO (Palette — list of KF_PaletteKitColorRole with GUID, name, color)",
+                    "KF_PaletteKitBindingSO (Binding — list of KF_PaletteKitMaterialBinding: roleId=GUID, material, propertyName)"
+                ],
+                "ussClasses": [
+                    "kfpk-toolbar-group",
+                    "kfpk-toolbar",
+                    "kfpk-toolbar--binding",
+                    "kfpk-toolbar-label",
+                    "kfpk-role-row",
+                    "kfpk-role-swatch-panel",
+                    "kfpk-role-color-field",
+                    "kfpk-role-name-field",
+                    "kfpk-role-materials-panel",
+                    "kfpk-binding-entry",
+                    "kfpk-binding-dot",
+                    "kfpk-binding-dot--valid",
+                    "kfpk-binding-dot--invalid",
+                    "kfpk-material-name",
+                    "kfpk-material-name--missing",
+                    "kfpk-binding-property",
+                    "kfpk-btn-redetect",
+                    "kfpk-btn-remove-material",
+                    "kfpk-btn-delete-role",
+                    "kfpk-add-material-field",
+                    "kfpk-no-binding-hint"
+                ]
+            },
+            "generatedAt": "2026-03-01T00:00:00Z",
+            "lastModifiedAt": "2026-04-12T00:00:00Z",
+            "description": "Editor window to manage semantic color palettes (SO) and apply them to URP materials via a separate Binding SO, with shader property auto-detection and non-destructive preview.",
+            "cpStatus": {
+                "CP1_opens_no_errors": true,
+                "CP2_palette_so_creates": true,
+                "CP3_role_add_rename": true,
+                "CP4_color_change_swatch": true,
+                "CP5_material_assignment": true,
+                "CP6_preview_mpb": true,
+                "CP7_apply_undo": true,
+                "CP8_CP10_scope": "eliminated — incoherent UX",
+                "CP11_lospec_import": false,
+                "CP12_png_export": false,
+                "CP13_demo_scene": false,
+                "CP14_zero_errors": false
+            },
+            "knownDebt": [
+                "IMPROVEMENT: RoleName/RoleColor/RoleId/Material/PropertyName are public fields — should be [SerializeField] private with getters per UNITY_RULES",
+                "IMPROVEMENT: _serializedPalette recreated on each RebuildRolesList — cache and call .Update() instead",
+                "SUGGESTION: UsesMaterial allocates sharedMaterials array per renderer — use indexer to avoid alloc"
+            ]
+        }
+    ]
+}

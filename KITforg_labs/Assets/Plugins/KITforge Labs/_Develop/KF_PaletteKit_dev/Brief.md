@@ -206,7 +206,7 @@ Por qué alguien elegiría esto sobre lo que ya existe.
 
 **Uso avanzado** (power user):
 1. Mantener 3 palettes: "Production", "Halloween", "Debug"
-2. Click Import → pegar JSON de Lospec
+2. Click Import → seleccionar `.hex` file descargado de Lospec
 3. Usar Scope = "Selection" para aplicar palette solo a un subset de materiales
 4. Exportar swatch PNG para compartir en Notion/Figma del equipo
 
@@ -228,7 +228,7 @@ Por qué alguien elegiría esto sobre lo que ya existe.
 | 8 | Scope Project | Scan con scope=Project encuentra todos los materiales asignados en la paleta |
 | 9 | Scope Scene | Scope=Active Scene solo afecta materiales de objetos en la escena activa |
 | 10 | Scope Selection | Scope=Selection solo afecta materiales de objetos seleccionados en Hierarchy |
-| 11 | JSON Import | Lospec JSON válido → roles creados con colores del JSON |
+| 11 | HEX Import | Lospec `.hex` file seleccionado → roles creados; nombre roles = `<filename> N`; Overwrite limpia bindings existentes; cap 64 colores |
 | 12 | PNG Export | Click Export → swatch PNG generado en `Assets/Settings/KITforgeLabs/Exports/` |
 | 13 | Demo scene funciona | `Demo_KF_PaletteKit.unity` carga, 5 objetos visibles, Apply cambia todos |
 | 14 | Zero console errors | Todos los flujos anteriores sin errores ni warnings |

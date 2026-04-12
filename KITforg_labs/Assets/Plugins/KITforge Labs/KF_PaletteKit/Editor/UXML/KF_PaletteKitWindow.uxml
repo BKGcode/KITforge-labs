@@ -42,6 +42,7 @@
                 </ui:ScrollView>
                 <ui:VisualElement class="kfpk-add-role-bar">
                     <ui:Button name="kfpk-btn-add-role" class="kf-btn--secondary" text="+ Add Role" />
+                    <ui:Button name="kfpk-btn-import-lospec" class="kf-btn--secondary" text="Import Lospec" />
                 </ui:VisualElement>
                 <ui:VisualElement class="kfpk-action-bar">
                     <ui:Button name="kfpk-btn-preview" class="kf-btn--secondary" text="Preview" />

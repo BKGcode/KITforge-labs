@@ -1,6 +1,6 @@
 # ChangeLog — KF_PaletteKit
 Phase: BUILD
-Last updated: 2026-04-12
+Last updated: 2026-04-12 (CP11)
 
 ---
 
@@ -21,7 +21,7 @@ Last updated: 2026-04-12
 - [     ] ⬜ CP8: Scope Project — FindAssets localiza todos los materiales asignados
 - [     ] ⬜ CP9: Scope Scene — Solo afecta materiales de escena activa
 - [     ] ⬜ CP10: Scope Selection — Solo afecta materiales de selección
-- [     ] ⬜ CP11: JSON Import — Lospec JSON → roles creados con colores
+- [x] ✅ CP11: HEX Import — Lospec HEX File → roles creados con prefijo nombre-archivo; Overwrite limpia bindings; cap 64 colores
 - [     ] ⬜ CP12: PNG Export — Swatch PNG en `Assets/Settings/KITforgeLabs/Exports/`
 - [     ] ⬜ CP13: Demo scene — Carga, 5 objetos visibles, Apply cambia todos
 - [     ] ⬜ CP14: Zero console errors — Todos los flujos sin errores ni warnings
@@ -40,3 +40,14 @@ Last updated: 2026-04-12
 
 ## v1.0.0 — TBD
 - Initial release
+
+---
+
+## Decisiones de diseño
+
+### CP11 — HEX Import (2026-04-12)
+- **Formato:** `.hex` (Lospec HEX File) en vez de JSON. Lospec no ofrece export JSON desde la web; HEX es el formato texto más simple disponible.
+- **Ubicación del botón:** `kfpk-add-role-bar` (loaded panel, junto a "+ Add Role"). Importar = añadir roles → pertenece al área de contenido, no al toolbar de selección de palette.
+- **Overwrite limpia bindings:** Si el usuario elige Overwrite, se eliminan también los bindings del BindingSO asignado. Dejar bindings huérfanos no tiene caso de uso válido.
+- **Naming:** Prefijo = nombre del archivo `.hex` capitalizado + número (`Apollo 1`, `Apollo 2`…). Útil en paletas con append de múltiples orígenes.
+- **Cap 64 colores:** Límite silencioso. Paletas >64 colores son edge case; 256 roles generaría lag visible en `RebuildRolesList`.
