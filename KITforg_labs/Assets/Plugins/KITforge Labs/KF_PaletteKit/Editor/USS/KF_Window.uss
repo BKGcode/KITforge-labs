@@ -1,0 +1,139 @@
+/* KF_Window.uss — KITforge Labs window anatomy
+   Defines: kf-root, kf-header, kf-content, kf-statusbar, kf-playmode-banner */
+
+/* ── ROOT — The accent stripe signature ──────────────────────── */
+.kf-root {
+    flex-grow: 1;
+    flex-direction: column;
+    border-top-color: var(--kf-accent);
+    border-top-width: 2px;
+    border-bottom-color: var(--kf-accent);
+    border-bottom-width: 2px;
+    border-left-width: 0;
+    border-right-width: 0;
+}
+
+/* ── HEADER ──────────────────────────────────────────────────── */
+.kf-header {
+    flex-direction: row;
+    align-items: center;
+    height: 32px;
+    padding-left: var(--kf-space-s);
+    padding-right: var(--kf-space-s);
+    background-color: var(--kf-bg-window);
+    border-bottom-width: 1px;
+    border-bottom-color: var(--kf-border);
+    flex-shrink: 0;
+}
+
+.kf-header__icon {
+    width: 16px;
+    height: 16px;
+    margin-right: var(--kf-space-s);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    --unity-image-tint-color: var(--kf-accent);
+}
+
+.kf-header__title {
+    font-size: var(--kf-font-l);
+    color: var(--kf-text-primary);
+    -unity-font-style: bold;
+}
+
+.kf-header__spacer {
+    flex-grow: 1;
+}
+
+.kf-header__version {
+    font-size: var(--kf-font-xs);
+    color: var(--kf-text-disabled);
+    margin-right: var(--kf-space-s);
+}
+
+.kf-header__btn {
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    border-width: 0;
+    border-radius: 0;
+    padding: 0;
+    margin: 0 2px;
+}
+
+.kf-header__btn:hover {
+    background-color: var(--kf-bg-surface-hover);
+    border-radius: var(--kf-radius-s);
+}
+
+/* ── CONTENT ─────────────────────────────────────────────────── */
+.kf-content {
+    flex-grow: 1;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: var(--kf-bg-window);
+}
+
+/* ── STATUS BAR ──────────────────────────────────────────────── */
+.kf-statusbar {
+    flex-direction: row;
+    align-items: center;
+    height: 24px;
+    padding: 0 var(--kf-space-s);
+    background-color: var(--kf-bg-window);
+    border-top-width: 1px;
+    border-top-color: var(--kf-border);
+    flex-shrink: 0;
+}
+
+.kf-statusbar__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: var(--kf-radius-full);
+    margin-right: var(--kf-space-s);
+    opacity: 0;
+}
+
+.kf-statusbar__dot--success { background-color: var(--kf-success); opacity: 1; }
+.kf-statusbar__dot--warning { background-color: var(--kf-warning); opacity: 1; }
+.kf-statusbar__dot--error   { background-color: var(--kf-error);   opacity: 1; }
+
+.kf-statusbar__message {
+    flex-grow: 1;
+    font-size: var(--kf-font-s);
+    color: var(--kf-text-secondary);
+}
+
+.kf-statusbar__action {
+    font-size: var(--kf-font-s);
+    color: var(--kf-text-accent);
+    background-color: transparent;
+    border-width: 0;
+    cursor: link;
+}
+
+/* ── PLAY MODE OVERLAY ───────────────────────────────────────── */
+.kf-playmode-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.65);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.kf-playmode-banner__title {
+    font-size: var(--kf-font-xl);
+    color: var(--kf-warning);
+    -unity-font-style: bold;
+    margin-bottom: var(--kf-space-s);
+}
+
+.kf-playmode-banner__subtitle {
+    font-size: var(--kf-font-m);
+    color: var(--kf-text-secondary);
+}

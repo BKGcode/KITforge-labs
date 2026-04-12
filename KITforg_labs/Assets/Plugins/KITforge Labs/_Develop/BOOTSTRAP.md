@@ -36,6 +36,7 @@ COMPLEX tier:     c:\Users\Joan\.claude\skills\design-patterns-skill\SKILL.md
 ROOT = d:\_AI_PROJECTS_\KITforge Labs\Unity\KITforge-labs\KITforg_labs\Assets\Plugins\KITforge Labs\_Develop\Skills
 
 ALWAYS:                {ROOT}/KF_NamingConventions.md
+ALWAYS:                {ROOT}/KF_UIBible.md
 BRIEF phase:           {ROOT}/KF_BriefRules.md
 BUILD/QA phase:        {ROOT}/KF_QARules.md
 STORE_PREP:            {ROOT}/KF_StorePrepRules.md

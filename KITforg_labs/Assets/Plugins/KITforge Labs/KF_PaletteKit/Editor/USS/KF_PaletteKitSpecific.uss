@@ -1,0 +1,327 @@
+/* KF_PaletteKitSpecific.uss — PaletteKit-specific styles
+   Scope: KF_PaletteKit only. Styles that don't belong in shared components. */
+
+/* ── TOOLBAR ─────────────────────────────────────────────────── */
+.kfpk-toolbar-group {
+    flex-shrink: 0;
+}
+
+.kfpk-toolbar {
+    flex-direction: row;
+    align-items: center;
+    padding: var(--kf-space-s);
+    background-color: var(--kf-bg-surface);
+    border-bottom-width: 1px;
+    border-bottom-color: var(--kf-border);
+    flex-shrink: 0;
+}
+
+.kfpk-toolbar--binding {
+    background-color: var(--kf-bg-surface-alt);
+}
+
+.kfpk-toolbar-label {
+    font-size: var(--kf-font-s);
+    color: var(--kf-text-secondary);
+    width: 44px;
+    flex-shrink: 0;
+    -unity-text-align: middle-left;
+}
+
+.kfpk-palette-field {
+    flex-grow: 1;
+    margin-right: var(--kf-space-s);
+}
+
+/* ── ROLES LIST ──────────────────────────────────────────────── */
+.kfpk-roles-scroll {
+    flex-grow: 1;
+}
+
+.kfpk-roles-container {
+    padding: var(--kf-space-s);
+}
+
+/* ── ROLE ROW ────────────────────────────────────────────────── */
+.kfpk-role-row {
+    flex-direction: row;
+    align-items: stretch;
+    background-color: var(--kf-bg-surface);
+    border-radius: var(--kf-radius-m);
+    border-width: 1px;
+    border-color: var(--kf-border);
+    margin-bottom: var(--kf-space-s);
+}
+
+.kfpk-role-row:hover {
+    border-color: var(--kf-border-subtle);
+}
+
+/* Color swatch panel (left side of role row) */
+.kfpk-role-swatch-panel {
+    width: 80px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: var(--kf-space-s);
+    border-right-width: 1px;
+    border-right-color: var(--kf-border);
+}
+
+.kfpk-role-swatch {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--kf-radius-s);
+    border-width: 1px;
+    border-color: var(--kf-border);
+}
+
+.kfpk-role-name {
+    font-size: var(--kf-font-s);
+    color: var(--kf-text-primary);
+    -unity-text-align: middle-center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 72px;
+}
+
+/* Materials panel (right side of role row) */
+.kfpk-role-materials-panel {
+    flex-grow: 1;
+    padding: var(--kf-space-s);
+}
+
+/* ── BINDING ENTRY ───────────────────────────────────────────── */
+.kfpk-binding-entry {
+    flex-direction: row;
+    align-items: center;
+    padding: 2px var(--kf-space-xs);
+    border-radius: var(--kf-radius-s);
+}
+
+.kfpk-binding-entry:hover {
+    background-color: var(--kf-bg-surface-hover);
+}
+
+.kfpk-binding-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--kf-radius-full);
+    margin-right: var(--kf-space-xs);
+    flex-shrink: 0;
+    background-color: var(--kf-text-disabled);
+}
+
+.kfpk-binding-dot--valid {
+    background-color: var(--kf-success);
+}
+
+.kfpk-binding-dot--invalid {
+    background-color: var(--kf-error);
+}
+
+.kfpk-binding-property {
+    flex-grow: 1;
+    font-size: var(--kf-font-xs);
+    background-color: var(--kf-bg-input);
+    margin-left: var(--kf-space-xs);
+    margin-right: var(--kf-space-xs);
+}
+
+.kfpk-binding-property > .unity-base-field__label {
+    display: none;
+}
+
+.kfpk-btn-redetect {
+    width: 20px;
+    height: 16px;
+    font-size: 10px;
+    background-color: transparent;
+    border-width: 0;
+    padding: 0;
+    color: var(--kf-text-secondary);
+    margin-right: 2px;
+    flex-shrink: 0;
+}
+
+.kfpk-btn-redetect:hover {
+    color: var(--kf-text-accent);
+}
+
+.kfpk-no-binding-hint {
+    font-size: var(--kf-font-xs);
+    color: var(--kf-text-disabled);
+    padding: var(--kf-space-xs) 0;
+    -unity-font-style: italic;
+}
+
+.kfpk-material-name {
+    font-size: var(--kf-font-s);
+    color: var(--kf-text-secondary);
+    flex-grow: 1;
+    margin-right: var(--kf-space-xs);
+}
+
+.kfpk-material-name--missing {
+    color: var(--kf-error);
+    margin-right: var(--kf-space-xs);
+}
+
+.kfpk-btn-add-material {
+    font-size: var(--kf-font-s);
+    color: var(--kf-text-accent);
+    background-color: transparent;
+    border-width: 0;
+    padding: 2px var(--kf-space-xs);
+    align-self: flex-start;
+}
+
+/* ── SCOPE SELECTOR ──────────────────────────────────────────── */
+.kfpk-scope-row {
+    flex-direction: row;
+    align-items: center;
+    padding: var(--kf-space-xs) var(--kf-space-s);
+    background-color: var(--kf-bg-surface);
+    border-top-width: 1px;
+    border-top-color: var(--kf-border);
+    flex-shrink: 0;
+}
+
+.kfpk-scope-label {
+    font-size: var(--kf-font-s);
+    color: var(--kf-text-secondary);
+    margin-right: var(--kf-space-m);
+}
+
+.kfpk-scope-btn {
+    font-size: var(--kf-font-s);
+    color: var(--kf-text-secondary);
+    background-color: var(--kf-bg-input);
+    border-width: 1px;
+    border-color: var(--kf-border);
+    border-radius: var(--kf-radius-m);
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: var(--kf-space-s);
+    padding-right: var(--kf-space-s);
+    margin-right: var(--kf-space-xs);
+}
+
+.kfpk-scope-btn:hover {
+    background-color: var(--kf-bg-surface-hover);
+    color: var(--kf-text-primary);
+}
+
+.kfpk-scope-btn--active {
+    background-color: var(--kf-accent);
+    color: var(--kf-accent-text);
+    border-color: var(--kf-accent);
+}
+
+.kfpk-scope-btn--active:hover {
+    background-color: var(--kf-accent-hover);
+    border-color: var(--kf-accent-hover);
+}
+
+/* ── ACTION BAR ──────────────────────────────────────────────── */
+.kfpk-action-bar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    padding: var(--kf-space-s);
+    background-color: var(--kf-bg-surface);
+    border-top-width: 1px;
+    border-top-color: var(--kf-border);
+    flex-shrink: 0;
+}
+
+.kfpk-action-bar .kf-btn--secondary {
+    margin-right: var(--kf-space-s);
+}
+
+/* ── LOADED PANEL ────────────────────────────────────────────── */
+.kfpk-loaded-panel {
+    flex-grow: 1;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ── ADD ROLE BAR ────────────────────────────────────────────── */
+.kfpk-add-role-bar {
+    flex-direction: row;
+    padding: var(--kf-space-s);
+    background-color: var(--kf-bg-surface);
+    border-top-width: 1px;
+    border-top-color: var(--kf-border);
+    flex-shrink: 0;
+}
+
+/* ── PALETTE FIELD — hide label ──────────────────────────────── */
+.kfpk-palette-field > .unity-base-field__label {
+    display: none;
+}
+
+/* ── ROLE COLOR FIELD ────────────────────────────────────────── */
+.kfpk-role-color-field {
+    min-width: 48px;
+    flex-grow: 1;
+    margin-bottom: var(--kf-space-xs);
+}
+
+.kfpk-role-color-field > .unity-base-field__label {
+    display: none;
+}
+
+.kfpk-role-color-field > .unity-base-field__input {
+    min-height: 40px;
+}
+
+/* ── ROLE NAME FIELD ─────────────────────────────────────────── */
+.kfpk-role-name-field {
+    width: 72px;
+    margin-top: var(--kf-space-xs);
+}
+
+.kfpk-role-name-field > .unity-base-field__label {
+    display: none;
+}
+
+/* ── ADD MATERIAL FIELD ──────────────────────────────────────── */
+.kfpk-add-material-field {
+    margin-top: var(--kf-space-xs);
+}
+
+.kfpk-add-material-field > .unity-base-field__label {
+    display: none;
+}
+
+/* ── DELETE ROLE BUTTON ──────────────────────────────────────── */
+.kfpk-btn-delete-role {
+    font-size: var(--kf-font-xs);
+    color: var(--kf-text-secondary);
+    background-color: transparent;
+    border-width: 0;
+    padding: 2px var(--kf-space-xs);
+    align-self: flex-end;
+    margin-top: var(--kf-space-xs);
+}
+
+.kfpk-btn-delete-role:hover {
+    color: var(--kf-error);
+}
+
+/* ── REMOVE MATERIAL BUTTON ──────────────────────────────────── */
+.kfpk-btn-remove-material {
+    width: 16px;
+    height: 16px;
+    font-size: 9px;
+    background-color: transparent;
+    border-width: 0;
+    padding: 0;
+    color: var(--kf-text-disabled);
+    align-self: center;
+}
+
+.kfpk-btn-remove-material:hover {
+    color: var(--kf-error);
+}

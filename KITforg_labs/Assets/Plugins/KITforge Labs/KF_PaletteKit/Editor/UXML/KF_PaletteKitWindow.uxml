@@ -1,0 +1,68 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="kf-root" class="kf-root">
+
+        <!-- HEADER -->
+        <ui:VisualElement name="kf-header" class="kf-header">
+            <ui:VisualElement name="kf-header-icon" class="kf-header__icon" />
+            <ui:Label name="kf-header-title" class="kf-header__title" text="PaletteKit" />
+            <ui:VisualElement class="kf-header__spacer" />
+            <ui:Label name="kf-header-version" class="kf-header__version" text="v1.0.0" />
+            <ui:Button name="kf-header-help" class="kf-header__btn" tooltip="Documentation" />
+            <ui:Button name="kf-header-menu" class="kf-header__btn" tooltip="Options" />
+        </ui:VisualElement>
+
+        <!-- CONTENT -->
+        <ui:VisualElement name="kf-content" class="kf-content">
+
+            <!-- TOOLBAR — palette + binding rows -->
+            <ui:VisualElement class="kfpk-toolbar-group">
+                <ui:VisualElement name="kfpk-toolbar" class="kfpk-toolbar">
+                    <ui:Label class="kfpk-toolbar-label" text="Palette" />
+                    <uie:ObjectField name="kfpk-palette-field" class="kfpk-palette-field" label="" />
+                    <ui:Button name="kfpk-btn-new-palette" class="kf-btn--secondary" text="+ New" />
+                </ui:VisualElement>
+                <ui:VisualElement name="kfpk-toolbar-binding" class="kfpk-toolbar kfpk-toolbar--binding">
+                    <ui:Label class="kfpk-toolbar-label" text="Binding" />
+                    <uie:ObjectField name="kfpk-binding-field" class="kfpk-palette-field" label="" />
+                    <ui:Button name="kfpk-btn-new-binding" class="kf-btn--secondary" text="+ New" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- EMPTY PANEL — visible when no palette selected -->
+            <ui:VisualElement name="kfpk-empty-panel" class="kf-empty-state">
+                <ui:VisualElement class="kf-empty-state__icon" />
+                <ui:Label class="kf-empty-state__title" text="No palette loaded" />
+                <ui:Label class="kf-empty-state__subtitle" text="Select or create a palette above." />
+            </ui:VisualElement>
+
+            <!-- LOADED PANEL — visible when palette is selected -->
+            <ui:VisualElement name="kfpk-loaded-panel" class="kfpk-loaded-panel">
+                <ui:ScrollView name="kfpk-roles-scroll" class="kfpk-roles-scroll">
+                    <ui:VisualElement name="kfpk-roles-container" class="kfpk-roles-container" />
+                </ui:ScrollView>
+                <ui:VisualElement class="kfpk-add-role-bar">
+                    <ui:Button name="kfpk-btn-add-role" class="kf-btn--secondary" text="+ Add Role" />
+                </ui:VisualElement>
+                <ui:VisualElement class="kfpk-action-bar">
+                    <ui:Button name="kfpk-btn-preview" class="kf-btn--secondary" text="Preview" />
+                    <ui:Button name="kfpk-btn-revert" class="kf-btn--secondary" text="Revert" />
+                    <ui:Button name="kfpk-btn-apply" class="kf-btn--primary" text="Apply" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+        <!-- STATUS BAR -->
+        <ui:VisualElement name="kf-statusbar" class="kf-statusbar">
+            <ui:VisualElement name="kf-statusbar-dot" class="kf-statusbar__dot" />
+            <ui:Label name="kf-statusbar-message" class="kf-statusbar__message" text="" />
+        </ui:VisualElement>
+
+        <!-- PLAY MODE OVERLAY (hidden by default, shown via C# in Play Mode) -->
+        <ui:VisualElement name="kf-playmode-banner" class="kf-playmode-banner" style="display: none;">
+            <ui:Label class="kf-playmode-banner__title" text="Disabled in Play Mode" />
+            <ui:Label class="kf-playmode-banner__subtitle" text="Exit Play Mode to edit palettes." />
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>

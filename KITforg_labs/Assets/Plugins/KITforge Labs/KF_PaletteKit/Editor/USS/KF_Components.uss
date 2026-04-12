@@ -1,0 +1,130 @@
+/* KF_Components.uss — KITforge Labs reusable components
+   Defines: kf-empty-state, kf-btn variants, kf-banner, kf-inline-banner */
+
+/* ── EMPTY STATE ─────────────────────────────────────────────── */
+.kf-empty-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: var(--kf-space-2xl);
+}
+
+.kf-empty-state__icon {
+    width: 32px;
+    height: 32px;
+    opacity: 0.3;
+    margin-bottom: var(--kf-space-s);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    --unity-image-tint-color: var(--kf-text-secondary);
+}
+
+.kf-empty-state__title {
+    font-size: var(--kf-font-l);
+    color: var(--kf-text-primary);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+}
+
+.kf-empty-state__subtitle {
+    font-size: var(--kf-font-m);
+    color: var(--kf-text-secondary);
+    -unity-text-align: middle-center;
+    margin-bottom: var(--kf-space-m);
+}
+
+.kf-empty-state__cta {
+    margin-top: var(--kf-space-s);
+}
+
+/* ── BUTTONS ─────────────────────────────────────────────────── */
+.kf-btn--primary {
+    background-color: var(--kf-btn-primary-bg);
+    color: var(--kf-btn-primary-text);
+    border-width: 0;
+    border-radius: var(--kf-radius-m);
+    padding-top: var(--kf-space-s);
+    padding-bottom: var(--kf-space-s);
+    padding-left: var(--kf-space-l);
+    padding-right: var(--kf-space-l);
+    -unity-font-style: bold;
+    font-size: var(--kf-font-m);
+}
+
+.kf-btn--primary:hover {
+    background-color: var(--kf-btn-primary-hover);
+}
+
+.kf-btn--secondary {
+    background-color: var(--kf-btn-secondary-bg);
+    color: var(--kf-text-primary);
+    border-width: 1px;
+    border-color: var(--kf-border);
+    border-radius: var(--kf-radius-m);
+    padding-top: var(--kf-space-xs);
+    padding-bottom: var(--kf-space-xs);
+    padding-left: var(--kf-space-m);
+    padding-right: var(--kf-space-m);
+    font-size: var(--kf-font-m);
+}
+
+.kf-btn--secondary:hover {
+    background-color: var(--kf-btn-secondary-hover);
+}
+
+.kf-btn--danger {
+    background-color: var(--kf-btn-danger-bg);
+    color: var(--kf-text-primary);
+    border-width: 0;
+    border-radius: var(--kf-radius-m);
+    padding-top: var(--kf-space-xs);
+    padding-bottom: var(--kf-space-xs);
+    padding-left: var(--kf-space-m);
+    padding-right: var(--kf-space-m);
+    font-size: var(--kf-font-m);
+}
+
+.kf-btn--danger:hover {
+    background-color: var(--kf-btn-danger-hover);
+}
+
+/* ── INLINE BANNERS ──────────────────────────────────────────── */
+.kf-banner {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: var(--kf-space-s) var(--kf-space-m);
+    margin: var(--kf-space-s);
+    border-radius: var(--kf-radius-m);
+    border-left-width: 3px;
+}
+
+.kf-banner--error   { background-color: var(--kf-error-bg);   border-left-color: var(--kf-error);   }
+.kf-banner--warning { background-color: var(--kf-warning-bg); border-left-color: var(--kf-warning); }
+.kf-banner--success { background-color: var(--kf-success-bg); border-left-color: var(--kf-success); }
+.kf-banner--info    { background-color: var(--kf-info-bg);    border-left-color: var(--kf-info);    }
+
+.kf-banner__text {
+    font-size: var(--kf-font-m);
+    color: var(--kf-text-primary);
+    flex-grow: 1;
+    white-space: normal;
+}
+
+/* ── SECTION HEADERS ─────────────────────────────────────────── */
+.kf-section-label {
+    font-size: var(--kf-font-xs);
+    color: var(--kf-text-disabled);
+    -unity-font-style: bold;
+    padding: var(--kf-space-xs) var(--kf-space-s);
+    margin-top: var(--kf-space-xs);
+    letter-spacing: 0.5px;
+}
+
+/* ── SEPARATORS ──────────────────────────────────────────────── */
+.kf-separator {
+    height: 1px;
+    background-color: var(--kf-border-subtle);
+    margin: var(--kf-space-s) 0;
+}

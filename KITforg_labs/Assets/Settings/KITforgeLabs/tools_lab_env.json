@@ -10,7 +10,7 @@
   "bootstrapFile": "Assets/Plugins/KITforge Labs/_Develop/BOOTSTRAP.md",
   "productRootPattern": "KF_<ToolSlug>",
   "devFolderPattern": "_Develop/KF_<ToolSlug>_dev",
-  "activeProduct": null,
+  "activeProduct": "KF_PaletteKit",
   "productPhases": [
     "BACKLOG",
     "BRIEF",
@@ -76,9 +76,9 @@
     },
     "KF_PaletteKit": {
       "name": "Color & Material Palette Manager",
-      "phase": "BACKLOG",
+      "phase": "BUILD",
       "score": 25,
-      "tier": "Moderate",
+      "tier": "Simple",
       "wave": 2
     },
     "KF_DebugOverlay": {

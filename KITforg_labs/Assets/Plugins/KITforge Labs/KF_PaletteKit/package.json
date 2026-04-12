@@ -1,0 +1,19 @@
+{
+  "name": "com.kitforgelabs.palettekit",
+  "displayName": "KITforge Labs — PaletteKit",
+  "version": "1.0.0",
+  "unity": "6000.0",
+  "description": "Apply color themes across any project in one click. Define semantic color roles and propagate changes to all linked materials instantly.",
+  "author": {
+    "name": "KITforge Labs",
+    "url": "https://kitforgelabs.com"
+  },
+  "keywords": [
+    "color",
+    "palette",
+    "material",
+    "editor",
+    "tools"
+  ],
+  "category": "Tools"
+}

@@ -127,12 +127,12 @@ Un dev trabajando en una escena con 50+ objetos abre el panel Hierarchy y ve una
 ## 6. UI Design
 
 **Tipo de interfaz:**
-☑ CustomEditor / Inspector extension (Settings panel en Project Settings o EditorWindow)  
-☑ MenuItem / ContextMenu — para crear separadores inline  
+☑ CustomEditor / Inspector extension (Settings panel en Project Settings o EditorWindow)
+☑ MenuItem / ContextMenu — para crear separadores inline
 Overlay principal: directo en Hierarchy window via callback (no hay ventana propia)
 
 **Sistema de UI:**
-☐ UI Toolkit — la Hierarchy window callback es IMGUI. La settings UI puede ser UGUI/UITK.  
+☐ UI Toolkit — la Hierarchy window callback es IMGUI. La settings UI puede ser UGUI/UITK.
 ☑ IMGUI — para el hierarchy overlay (técnicamente necesario aquí)
 
 **Wireframe / sketch:**

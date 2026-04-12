@@ -245,13 +245,96 @@ La card de HierarchyKit dice explícitamente: "Why first: Visual impact is immed
 4. Tema dark/light: respetar `EditorGUIUtility.isProSkin`.
 5. Freemium: ¿qué feature ≥ paid? Definir el tier gate es fundamental para no dar todo gratis.
 
-### DECISIÓN TOMADA ✅
+### DECISIÓN TOMADA (revisada) ✅
 
-**Primer producto: KF_HierarchyKit**
-Razón: Aprender el pipeline. Tier Moderate. Demo en 5s. Bajo support risk. 
+**Primer producto: KF_PaletteKit** (cambio desde HierarchyKit)
+Razones del cambio:
+- HierarchyKit: mercado saturado (70+ herramientas), API central con perf risk real, separadores-sin-GO = hack complejo
+- PaletteKit: Tier Simple real, vacío de mercado validado (5 resultados en store), scope muy acotado
+- Objetivo = aprender pipeline, no maximizar ventas del primera producto
 
-**Modelo comercial:** Paid simple (freemium descartado para v1 — añade complejidad innecesaria al aprender el pipeline).
-**Siguiente paso:** Brief DRAFT → completar secciones → Brief APPROVED → BUILD.
+**Modelo comercial:** Paid simple, $20.
+**Siguiente paso:** Brief para KF_PaletteKit.
+
+---
+
+## SESSION 2b — PaletteKit Stress Test como usuario
+
+### Ideas y features — brainstorm sin filtros
+
+**1. LIVE PREVIEW antes de aplicar (crítico)**
+El problema: apply palette → todos los materiales cambian permanentemente. Si no te gusta, Ctrl+Z en bulk.
+La idea: modo "try" — aplicar cambios temporalmente en memoria para previsualización en Scene/Game View, cancelar sin commits. Requiere snapshot del estado previo. Esto es lo más frustrante sin tener.
+
+**2. ROLES semánticos (Primary, Secondary, Accent, Danger…)**
+En vez de "color 1, color 2", los swatches tienen roles nombrados. Los materiales se linkean a roles, no a colores concretos.
+Resultado: cambias Primary de verde a azul → TODO el juego cambia en un clic real.
+Este es el diferenciador conceptual más fuerte. Sin esto, es un "mass replace by hand." Con esto, es un "theme system."
+
+**3. Import desde fuentes externas**
+- Lospec (pixel art palettes — JSON público)
+- Coolors.co (URL → parse)
+- Figma → JSON export → importar
+- Adobe Swatch (.aco) o CSS variables
+Diseñadores trabajan en Figma. Sin import, el dev copia hexes a mano. Esto elimina ese paso.
+
+**4. Scope de aplicación granular**
+No siempre quieres aplicar a todo el proyecto.
+Opciones: todo el proyecto / solo materiales de la escena activa / solo materiales de una carpeta / solo materiales de objetos seleccionados en Hierarchy.
+Sin esto, la tool es peligrosa en proyectos grandes.
+
+**5. UNDO como ciudadano de primera clase**
+`Undo.RecordObject` antes de cada operación destructiva. Un solo Ctrl+Z deshace el batch completo.
+Sin esto, el primer bulk apply que salga mal = review de 1 estrella garantizado.
+
+**6. Property mapping inteligente**
+Un material puede tener `_BaseColor`, `_EmissionColor`, `_SpecColor`, `_Color`...
+Necesitas decirle a la tool: "para materiales Lit, Primary → _BaseColor. Para materiales Unlit, Primary → _Color."
+Sin esto, el apply ciega a una propiedad por defecto y la mitad de materiales quedan mal.
+
+**7. Palette history / versioning**
+"Esta paleta hace 3 semanas se veía diferente." Snapshot automático en cada save con timestamp.
+Diff visual entre versiones: qué colores cambiaron, qué materiales se verían afectados.
+
+**8. Export multi-formato**
+La paleta que defines en Unity no se queda en Unity.
+Exportar como: PNG swatch sheet / JSON / CSS variables / C# constants file / Figma-compatible JSON.
+El TA define la paleta en la tool, la exporta para que el diseñador la use en Figma como referencia compartida activa.
+
+**9. Material browser con filtro visual por color**
+"Muéstrame todos los materiales que actualmente tienen asignado algo cercano a este rojo."
+Selector de color → filtro → lista de materiales encontrados → bulk override.
+Útil para auditoría: ¿cuántos materiales usan colores que NO están en la paleta oficial?
+
+**10. Palette locking / aprobación**
+Un palette puede marcarse como "Production Approved." Una vez bloqueada:
+- Readonly. No se puede editar sin desbloquear explícitamente.
+- La tool avisa si intentas aplicar una paleta no aprobada a materiales de producción.
+Esto es feature de estudio, no de indie solo — pero justifica precio más alto.
+
+### Evaluación de complejidad para Brief v1
+
+| Idea | Impacto | Complejidad | ¿MVP o v2? |
+|---|---|---|---|
+| Live preview | CRÍTICO | Media (snapshot + rollback) | **MVP** |
+| Roles semánticos | DIFERENCIADOR | Baja (SO + nombre) | **MVP** |
+| Import Lospec/JSON | Alto | Baja (parse JSON) | **MVP** |
+| Scope granular | CRÍTICO para safety | Baja | **MVP** |
+| Undo de primera clase | CRÍTICO para safety | Baja | **MVP** |
+| Property mapping | Alto | Media | **MVP** |
+| Palette history | Interesante | Media-alta | V2 |
+| Export multi-formato | Alto | Baja | MVP (PNG+JSON) |
+| Material browser visual | Alto | Media | V2 |
+| Palette locking | Studio feature | Baja | V2 |
+
+### Conclusión del stress test
+
+El MVP mínimo decente necesita: roles + scope granular + undo + property mapping + live preview.
+Sin al menos 4 de esos 5, la tool tiene review risk alto (operaciones destructivas sin safety net).
+
+La diferenciación real: **roles semánticos** es lo que transforma la tool de "mass color replace" a "theme system." Ninguna herramienta de la store tiene este concepto. Es la apuesta core.
+
+---
 
 ---
 
