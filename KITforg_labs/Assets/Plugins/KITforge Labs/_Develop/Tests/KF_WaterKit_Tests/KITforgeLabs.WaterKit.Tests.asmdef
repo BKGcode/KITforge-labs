@@ -1,0 +1,22 @@
+{
+    "name": "KITforgeLabs.WaterKit.Tests",
+    "rootNamespace": "KITforgeLabs.Editor.WaterKit.Tests",
+    "references": [
+        "KITforgeLabs.WaterKit.Editor",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

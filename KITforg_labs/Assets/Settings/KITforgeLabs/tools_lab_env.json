@@ -10,7 +10,10 @@
   "bootstrapFile": "Assets/Plugins/KITforge Labs/_Develop/BOOTSTRAP.md",
   "productRootPattern": "KF_<ToolSlug>",
   "devFolderPattern": "_Develop/KF_<ToolSlug>_dev",
-  "activeProduct": null,
+  "activeProduct": { "slug": "KF_MobileUIKit", "publicName": "Mobile UI Kit", "phase": "BUILD", "milestone": "Group-0", "since": "2026-05-01" },
+  "standbyProducts": [
+    { "slug": "KF_WaterKit", "publicName": "WaterKIT", "phase": "STANDBY", "previousPhase": "BUILD", "milestone": "M0", "since": "2026-04-13", "standbySince": "2026-05-01" }
+  ],
   "productPhases": [
     "BACKLOG",
     "BRIEF",
@@ -32,6 +35,14 @@
     "namespacePattern": "KITforgeLabs.<Area>.<Slug>"
   },
   "products": {
+    "KF_MobileUIKit": {
+      "name": "Mobile UI Kit",
+      "phase": "BUILD",
+      "tier": "Complex",
+      "wave": 1,
+      "repo": "external — H:/==GIT==/PACHINKO/PACHINKO/Packages/com.kitforgelabs.mobile-ui-kit",
+      "note": "Code lives outside lab folder; lab tracks meta only"
+    },
     "KF_HierarchyKit": {
       "name": "Hierarchy Enhancement Kit",
       "phase": "BACKLOG",
