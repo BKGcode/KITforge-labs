@@ -4,6 +4,59 @@ _Last updated: 2026-05-02_
 
 ## [Unreleased]
 
+### Session — 2026-05-02 (cont.3) — TutorialPopup scaffolded · Group A code-complete · 59/59 GREEN
+GOAL: Cerrar 4/4 TutorialPopup (último elemento de Group A en código), dejar 59/59 verde.
+DONE:
+- **8 decisiones de diseño cerradas antes de tocar código** (estructura List<TutorialStep>, single-Next con label dinámico, back=Skip, TapToAdvance flag, LoopBackToFirst flag, sin Time.timeScale, SetUpdate(true) defensivo, animator dedicado).
+- **TutorialPopup (4/4 Group A)** scaffold completo:
+  - `Runtime/Catalog/Popups/Tutorial/`: `TutorialStep` POCO, `TutorialPopupData` (steps + StartIndex + ShowPrevious/ShowSkip + LoopBackToFirst + CloseOnBackdrop + TapToAdvance + custom labels), `UIAnimTutorialPopup` (clon estructural de Pause con `SetUpdate(true)` defensivo show+hide), `TutorialPopup` (`UIModule<TData>`, dynamic Next-label que muta a DoneLabel en último paso, ProgressLabel "i / N" auto, public `GoNext`/`GoPrevious`/`SkipTutorial`/`CompleteTutorial`, `CurrentIndex`/`StepCount`/`IsFirstStep`/`IsLastStep` getters, theme-null warning one-shot, `ClearAllEvents` en Bind + OnDestroy).
+  - `Tests/Editor/TutorialPopupTests.cs` — 10 tests (Bind null, Bind con StartIndex, GoNext+StepChanged, GoNext en último→Completed+dismiss, GoNext último con loop wrappea, GoPrevious en primero ignorado, GoPrevious decrementa, back→Skip+dismiss, back durante dismissing ignorado, Bind reset listeners).
+- **EditMode 59/59 verde** confirmado por usuario vía TestRunner del Editor (38 Group 0 + 5 Confirm + 5 Toast + 6 Pause + 10 Tutorial). Headless bloqueado por Editor abierto — validación manual aceptada.
+DECISIONS (sin consultar — flag para review junto con las 7 de Pause):
+- Back press = Skip (no Previous). Convención modal móvil; Previous explícito vía botón.
+- GoNext en último paso → `OnCompleted` + dismiss; con `LoopBackToFirst=true` wrappea a 0 y emite `OnNext` (NO completa).
+- `TapToAdvance` gana sobre `CloseOnBackdrop` en backdrop tap.
+- `GoPrevious` en primer paso silenciosamente ignorado (sin evento, sin audio cue).
+- Sin `Time.timeScale` — Tutorial es gameplay-aware; pause se compone vía host (o dentro de Pause).
+- Single Next button con label mutante (no Done button separado).
+- Animator dedicado por elemento — duplicación intencional (regla del catálogo).
+- `LoopBackToFirst` default `false`; `TapToAdvance` default `false`; `CloseOnBackdrop` default `false`.
+PENDING (cierre Group A):
+- Specs: `Documentation~/Specs/Catalog/{NotificationToast,PausePopup,TutorialPopup}.md`
+- Prefabs + entries en Demo scene `Samples~/Catalog/` (Editor manual)
+- Validar las **7 decisiones de Pause + 8 de Tutorial** con usuario antes de tag
+- Bump `0.4.0-alpha` + tag al cerrar
+REFS: Packages/com.kitforgelabs.mobile-ui-kit/{Runtime/Catalog/Popups/Tutorial/{TutorialPopupData,UIAnimTutorialPopup,TutorialPopup}.cs, Tests/Editor/TutorialPopupTests.cs, CHANGELOG.md}
+
+### Session — 2026-05-02 (cont.2) — PausePopup scaffolded · 49/49 GREEN · pushed
+GOAL: Cerrar 2/4 NotificationToast (TA polish) + scaffoldear 3/4 PausePopup con tests verde, persistir estado en ambos repos.
+DONE:
+- **`/_checker as qa`** sobre NotificationToast → 2 false positives, no se aplicaron fixes innecesarios. Lección: stress-test deep dives requieren 1-2 file reads antes de simular escenarios.
+- **NotificationToast (2/4) TA polish**: `[Tooltip]` en `_defaultDuration` + warning one-shot vía `_themeWarningLogged` cuando `Theme==null` en `OnShow`.
+- **PausePopup (3/4 Group A)** scaffold completo:
+  - `Runtime/Catalog/Popups/Pause/`: `PausePopupData` (7 botones + 3 toggles inline + flags), `UIAnimPausePopup` (clon de Confirm con `SetUpdate(true)` para unscaled time), `PausePopup` (`UIModule<TData>`, captura/restaura `Time.timeScale` alrededor de show/hide, categorías Dismissing vs Shortcut, toggles que mutan `_data` sin cerrar, public `Resume()`, `OnBackPressed`→`HandleResume`, theme-null warning, `OnDestroy` restaura timeScale si `IsPaused`).
+  - `Tests/Editor/PausePopupTests.cs` — 6 tests (Bind null, Back→Resume+Dismiss, Back ignored si IsDismissing, OnShow pausa y Resume restaura, restaura el valor original no hardcoded 1f, Bind reset listeners).
+- **EditMode 49/49 verde** headless confirmado (38 Group 0 + 5 Confirm + 5 Toast + 6 Pause).
+- **Persistencia**:
+  - Package `com.kitforgelabs.mobile-ui-kit` commit `f8d6885` (57 archivos, 1809+/6−) + push (`2175e6f..f8d6885`).
+  - Lab tracker commit `51fd7e1` + push (`5f6bd8d..51fd7e1`).
+DECISIONS (sin consultar — flag para review):
+- Dos categorías de botones en Pause: **Dismissing** (Resume/Restart/Home/Quit) cierran, **Shortcut** (Settings/Shop/Help) emiten evento y mantienen popup abierto.
+- Toggles inline (Sound/Music/Vibration) mutan `_data.XxxOn` + emiten `OnXxxChanged(bool)`, nunca cierran.
+- `Time.timeScale` directo, sin `ITimeService` (YAGNI hasta 2º consumidor).
+- Pause se aplica DESPUÉS de show-anim (callback de `PlayShow`); restore ANTES de hide-anim.
+- `UIAnimPausePopup` usa `SetUpdate(true)` defensivo en hide-anim también.
+- `CloseOnBackdrop` default = `false` (consistente con catálogo).
+- Public `Resume()` para triggers externos (botón gameplay, etc.).
+- NO se ha tageado `v0.4.0-alpha` — Group A aún no cerrado (falta Tutorial + specs + prefabs).
+PENDING:
+- 4/4 **Tutorial** ← NEXT
+- Specs: `NotificationToast.md`, `PausePopup.md`, `TutorialPopup.md`
+- Prefabs + entries en Demo scene `Samples~/Catalog/`
+- Cierre Group A → bump `0.4.0` + tag
+- Validar las 7 decisiones de Pause con usuario
+REFS: Packages/com.kitforgelabs.mobile-ui-kit/{Runtime/Catalog/Popups/Pause/{PausePopupData,UIAnimPausePopup,PausePopup}.cs, Runtime/Catalog/Toasts/NotificationToast.cs, Tests/Editor/PausePopupTests.cs, CHANGELOG.md}
+
 ### Session — 2026-05-02 (cont.) — `/_checker as dev` + NotificationToast scaffolded · tests GREEN
 GOAL: Auditoría adversarial dev sobre ConfirmPopup, aplicar fixes, arrancar 2/4 NotificationToast.
 DONE:
