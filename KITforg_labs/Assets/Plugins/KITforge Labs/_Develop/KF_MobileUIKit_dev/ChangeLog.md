@@ -4,6 +4,32 @@ _Last updated: 2026-05-02_
 
 ## [Unreleased]
 
+### Session — 2026-05-02 (cont.) — `/_checker as dev` + NotificationToast scaffolded · tests GREEN
+GOAL: Auditoría adversarial dev sobre ConfirmPopup, aplicar fixes, arrancar 2/4 NotificationToast.
+DONE:
+- **`/_checker as dev`** — 5 escenarios (compile drift, AddComponent path, theme rebind, audio router swap, animator override). 2 hallazgos accionables:
+  1. `UIModuleBase.OnHide` semántica ambigua (post-hide hook vs trigger) → XML doc clarificadora añadida.
+  2. ConfirmPopup `_animator` tipo concreto bloquea testing/sustitución → migrado a `IUIAnimator` + `internal SetAnimatorForTests` seam + `[InternalsVisibleTo]` via `Runtime/Catalog/AssemblyInfo.cs`. `ResetEventListeners` renombrado a `ClearAllEvents` y se llama también en `OnDestroy`. Null-safe en `Animator?.Skip()` y guard en `DismissWithAnimation` cuando animator==null.
+- **Group 0 extendido**: `UIToastBase` ahora tiene `DismissRequested`/`IsDismissing`/`Theme`/`Services`/`virtual Initialize`/`RaiseDismissRequested` — alineado con Q1/Q2 de Confirm. Pause/Tutorial heredarán gratis.
+- **NotificationToast (2/4 Group A)** scaffold:
+  - `Runtime/Catalog/Toasts/`: `ToastSeverity` (Info/Success/Warning/Error), `NotificationToastData` (Message + Severity + DurationOverride + TapToDismiss=true), `NotificationToast` (`UIToast<TData>`, `[RequireComponent]`, severity → tint+icon+cue, `OnTapped`/`OnDismissed`, idempotent `DismissNow`, `ClearAllEvents`), `UIAnimNotificationToast` (slide via `PositionOffset` + fade, sin scale).
+  - `ToastManager` ahora hace `Initialize(theme, services)` por toast + lifecycle de `DismissRequested`. ⚠️ **Breaking**: añadido slot `_services` en Inspector — buyers de Group 0 deben re-cablear.
+- **EditMode tests**: `NotificationToastTests` (5 tests). **43/43 verde confirmadas por usuario.**
+- **Incident**: `ToastManager.cs` quedó corrupto por dos `replace_string_in_file` solapados en la misma franja → archivo borrado y reescrito completo. Lección aprendida: para refactors >1 zona del mismo archivo, dump completo > parches secuenciales.
+DECISIONS (sin consultar — flag para review):
+- Severity Warning usa `Theme.AccentColor` (sin añadir `WarningColor` dedicado — YAGNI hasta 2º consumidor).
+- Solo Success tiene icono (`Theme.IconCheck`); Info/Warning/Error ocultan el Image.
+- `TapToDismiss = true` por defecto (convención Snackbar/Toast móvil).
+- Toast no maneja back press (no-blocking por definición).
+PENDING:
+- Spec `Documentation~/Specs/Catalog/NotificationToast.md` (al final del elemento).
+- CATALOG.md fila #11 con link a la spec.
+- Prefab + Demo scene (diferido al final de Group A).
+- 3/4 **Pause** (siguiente).
+- 4/4 **Tutorial** (después).
+- Bump a `0.4.0` al cerrar Group A entero.
+REFS: Packages/com.kitforgelabs.mobile-ui-kit/{Runtime/{Toast/{UIToastBase,ToastManager}.cs, Catalog/{AssemblyInfo.cs, Toasts/*.cs, Popups/Confirm/ConfirmPopup.cs}}, Tests/Editor/NotificationToastTests.cs, CHANGELOG.md}
+
 ### Session — 2026-05-02 — ConfirmPopup CLOSED · spec + catalog link · tests GREEN
 GOAL: Cerrar el elemento entero (1/4 de Group A).
 DONE:
